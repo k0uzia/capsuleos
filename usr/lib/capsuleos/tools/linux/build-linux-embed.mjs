@@ -50,7 +50,6 @@ const OUT_FILE = path.join(ROOT, 'var/lib/capsuleos/generated/capsule-app-embed.
 const MANIFEST_PATH = path.join(ROOT, 'home/public/.capsule-manifest.json');
 
 const FAMILY_APP_HTML_DIRS = {
-    mint: path.join(ROOT, 'home/Debian/Mint/apps'),
     opensuse: path.join(ROOT, 'home/SUSE/openSUSE/apps'),
     anduinos: path.join(ROOT, 'home/Debian/AnduinOS/apps'),
     debiankde: path.join(ROOT, 'home/Debian/Debian-KDE/apps'),

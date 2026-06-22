@@ -592,7 +592,9 @@ window.CAPSULE_SKIN_PROFILES = {
         "file_roller"
       ],
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/cinnamon_settings.html"
+        "themes": "../../../usr/share/capsuleos/linux/apps/cinnamon_settings.html",
+        "visionneur_images": "../../../usr/share/capsuleos/linux/apps/visionneur_images_pix.html",
+        "visionneur_pdf": "../../../usr/share/capsuleos/linux/apps/visionneur_pdf_xreader.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -1561,7 +1563,9 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "file_roller"
       ],
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/cinnamon_settings.html"
+        "themes": "../../../usr/share/capsuleos/linux/apps/cinnamon_settings.html",
+        "visionneur_images": "../../../usr/share/capsuleos/linux/apps/visionneur_images_pix.html",
+        "visionneur_pdf": "../../../usr/share/capsuleos/linux/apps/visionneur_pdf_xreader.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",

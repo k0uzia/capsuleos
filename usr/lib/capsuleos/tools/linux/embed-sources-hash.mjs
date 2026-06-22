@@ -17,7 +17,6 @@ export const EMBED_HASH_FILE = path.join(ROOT, 'var/lib/capsuleos/generated/caps
 const SOURCE_DIRS = [
   'usr/share/capsuleos/linux/apps',
   'usr/share/capsuleos/linux/explorers',
-  'home/Debian/Mint/apps',
   'home/SUSE/openSUSE/apps',
   'home/Debian/AnduinOS/apps',
   'home/Debian/Debian-KDE/apps',

@@ -30,6 +30,7 @@ const steps = [
   "validate-a11y.mjs",
   'validate-simulated-web.mjs',
   'validate-contrib-packages.mjs',
+  'validate-skin-app-html-overrides.mjs',
 ];
 
 let failed = false;

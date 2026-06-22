@@ -20,7 +20,12 @@ export const APPS_DIR = path.join(ROOT, 'usr/share/capsuleos/linux/apps');
 export const STYLE_DIR = path.join(APPS_DIR, 'style');
 
 /** Slots multi-variants — collision historique entre toolkits (apps, pas explorateurs). */
-export const MULTI_VARIANT_SLOTS = new Set(['update_manager', 'themes']);
+export const MULTI_VARIANT_SLOTS = new Set([
+    'update_manager',
+    'themes',
+    'visionneur_images',
+    'visionneur_pdf',
+]);
 
 /** Résolus via CAPSULE_EXPLORER_TEMPLATE / registre explorateurs — pas CAPSULE_TEMPLATE_OVERRIDES. */
 export const EXPLORER_SLOTS = new Set(['nemo', 'mainMenu']);
@@ -147,7 +152,14 @@ export function readVariantBaseCss(variant, root = ROOT) {
 /** Interdit : un gabarit d'un autre toolkit dans les overrides d'un profil. */
 export const TOOLKIT_TEMPLATE_MARKERS = {
     gnome: ['_gnome.html', 'themes_gnome', 'nemo-gnome', 'nautilus/shell-gnome'],
-    cinnamon: ['cinnamon_settings', 'update_manager.html', '/nemo.html', 'mainMenu.html'],
+    cinnamon: [
+        'cinnamon_settings',
+        'visionneur_images_pix',
+        'visionneur_pdf_xreader',
+        'update_manager.html',
+        '/nemo.html',
+        'mainMenu.html',
+    ],
     kde: ['_kde.html', 'update_manager_kde', 'dolphin/'],
 };
 
@@ -159,7 +171,10 @@ export function detectToolkitFromTemplatePath(templatePath) {
     if (p.includes('_kde') || p.includes('dolphin/')) {
         return 'kde';
     }
-    if (p.includes('cinnamon_settings') || (p.includes('update_manager.html') && !p.includes('_gnome'))) {
+    if (p.includes('cinnamon_settings')
+        || p.includes('visionneur_images_pix')
+        || p.includes('visionneur_pdf_xreader')
+        || (p.includes('update_manager.html') && !p.includes('_gnome'))) {
         return 'cinnamon';
     }
     if (p.includes('update_manager.html')) {

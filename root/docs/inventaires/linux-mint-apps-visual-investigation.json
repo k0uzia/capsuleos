@@ -2161,8 +2161,8 @@
           "bookmarks",
           "menu-hamburger"
         ],
-        "chromeProvider": "firefox-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {

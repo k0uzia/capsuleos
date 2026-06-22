@@ -420,13 +420,13 @@
         },
         "visionneur_images": {
           "chromeProvider": "cinnamon",
-          "template": "visionneur_images.html",
+          "template": "visionneur_images_pix.html",
           "skinCss": "visionneur_images.skin.css",
           "functionalDepth": "partial"
         },
         "visionneur_pdf": {
           "chromeProvider": "cinnamon",
-          "template": "visionneur_pdf.html",
+          "template": "visionneur_pdf_xreader.html",
           "skinCss": "visionneur_pdf.skin.css",
           "functionalDepth": "partial"
         },

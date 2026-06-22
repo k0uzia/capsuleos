@@ -270,17 +270,20 @@ for (const file of profileFiles) {
             continue;
         }
         const defaultTemplate = `${slotId}.html`;
-        // Collision documentée : {slot}.html = variant Cinnamon ; GNOME exige suffixe _gnome
-        if (variant.template === defaultTemplate && toolkitId === 'gnome') {
-            const cinnamonHas = catalog.toolkits.cinnamon
-                && catalog.toolkits.cinnamon.slotSpecs
-                && catalog.toolkits.cinnamon.slotSpecs[slotId];
-            if (cinnamonHas) {
-                errors.push(
-                    `${profileId}: slot-default-assumption — ${slotId} utilise ${defaultTemplate} `
-                    + `sur toolkit gnome (attendu variant explicite, ex. ${slotId}_gnome.html)`
-                );
-            }
+        const cinnamonVariant = catalog.toolkits.cinnamon
+            && catalog.toolkits.cinnamon.slotSpecs
+            && catalog.toolkits.cinnamon.slotSpecs[slotId]
+            ? resolveSlotVariant(catalog, { toolkitId: 'cinnamon' }, slotId)
+            : null;
+        const cinnamonUsesDefault = Boolean(
+            cinnamonVariant && cinnamonVariant.template === defaultTemplate
+        );
+        // Collision : {slot}.html = variant Cinnamon historique ; GNOME exige suffixe explicite
+        if (variant.template === defaultTemplate && toolkitId === 'gnome' && cinnamonUsesDefault) {
+            errors.push(
+                `${profileId}: slot-default-assumption — ${slotId} utilise ${defaultTemplate} `
+                + `sur toolkit gnome (attendu variant explicite, ex. ${slotId}_gnome.html)`
+            );
         }
     }
 }

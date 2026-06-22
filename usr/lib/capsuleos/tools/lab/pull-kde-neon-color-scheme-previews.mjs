@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 /**
+ * SPDX-FileCopyrightText: 2020-2026 les contributeurs CapsuleOS
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ *
  * Pull .colors / desktoptheme/colors depuis VM → previews PNG (KCM Couleurs / Style Plasma).
  *
  * Usage :
- *   node usr/lib/capsuleos/tools/lab/pull-kde-neon-color-scheme-previews.mjs --write
+ *   KDE_NEON_SSH=<lab-inventory:linux-kde-neon> node usr/lib/capsuleos/tools/lab/pull-kde-neon-color-scheme-previews.mjs --write
  */
 import fs from 'fs';
 import path from 'path';
@@ -12,6 +15,7 @@ import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
 import { renderSchemePreviewFromFile } from './kde-color-scheme-preview-lib.mjs';
 import { PNG } from 'pngjs';
+import { resolveInventoryField } from './lab-inventory-resolve.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../../..');
 const MANIFEST = path.join(ROOT, 'root/tools/lab/kde-neon-color-scheme-previews-manifest.json');
@@ -20,7 +24,11 @@ const write = process.argv.includes('--write');
 const manifest = JSON.parse(fs.readFileSync(MANIFEST, 'utf8'));
 const destBase = path.join(ROOT, manifest.destDir);
 const size = manifest.previewSize || { width: 200, height: 120 };
-const sshTarget = process.env.KDE_NEON_SSH || 'capsule@192.168.124.6';
+const sshTarget = process.env.KDE_NEON_SSH || resolveInventoryField('linux-kde-neon', 'ssh');
+if (!sshTarget) {
+  console.error('pull-kde-neon-color-scheme-previews — KDE_NEON_SSH ou lab-inventory.json requis');
+  process.exit(1);
+}
 const identity = process.env.KDE_NEON_SSH_IDENTITY || `${process.env.HOME}/.ssh/capsuleos-lab`;
 const sshOpts = ['-o', 'BatchMode=yes', '-o', 'IdentitiesOnly=yes', '-i', identity];
 

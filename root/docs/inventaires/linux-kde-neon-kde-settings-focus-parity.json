@@ -1,6 +1,6 @@
 {
   "registryId": "linux-kde-neon",
-  "comparedAt": "2026-06-22T10:55:57.865Z",
+  "comparedAt": "2026-06-22T12:04:43.268Z",
   "focusOutDir": "root/docs/inventaires/captures/linux-kde-neon/apps-visual-focus",
   "vmLetterbox": {
     "top": 52,
@@ -50,7 +50,7 @@
         },
         {
           "regionId": "theme-grid",
-          "phi": 38,
+          "phi": 38.5,
           "phiNormalized": 41.8,
           "phiThreshold": 90,
           "ok": false

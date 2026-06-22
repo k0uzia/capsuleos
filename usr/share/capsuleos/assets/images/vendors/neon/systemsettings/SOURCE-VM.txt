@@ -1,5 +1,5 @@
 Theme-previews System Settings — preview.png Plasma LookAndFeel (2026-06-22T11:34:19.956Z).
-VM : capsule@192.168.1.84
+VM : <lab-inventory:linux-kde-neon>
 Manifeste : root/tools/lab/kde-neon-settings-theme-previews-manifest.json
 Procédure : bash root/tools/lab/pull-kde-neon-settings-theme-previews.sh
 
@@ -7,3 +7,4 @@ Fichiers :
 - appearance-twilight-vm.png ← /usr/share/plasma/look-and-feel/org.kde.breezetwilight.desktop/contents/previews/preview.png (149745 o)
 
 KCM Couleurs/Style Plasma rendent des previews procédurales ; Capsule réutilise preview.png LnF du paquet Plasma (ground truth packagé KDE, ¬capture).
+Connexion SSH : etc/capsuleos/lab-inventory.json (local, gitignoré).

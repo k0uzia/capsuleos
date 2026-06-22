@@ -17,7 +17,8 @@ resolve_ip() {
 
 IP="${KDE_NEON_SSH_HOST:-$(resolve_ip)}"
 if [[ -z "${IP}" ]]; then
-  IP="192.168.124.6"
+  echo "prepare-kde-neon-lab-ssh — IP introuvable (virsh DHCP) ; définir KDE_NEON_SSH_HOST" >&2
+  exit 1
 fi
 
 SSH_CONFIG=( -F /dev/null -o StrictHostKeyChecking=accept-new -o IdentitiesOnly=yes -i "${KEY}" )

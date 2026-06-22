@@ -40,7 +40,7 @@ Slot `themes`, gabarit `systemsettings_kde_neon.html`, chrome Breeze via `kde-sy
 
 Seuil clôture : **Φ_norm ≥ 90** (`kde-settings-controls-registry.json`).
 
-Dernière mesure focus crops : `linux-kde-neon-kde-settings-focus-parity.json` (2026-06-22T09:23 — VM `capsule@192.168.1.84`).
+Dernière mesure focus crops : `linux-kde-neon-kde-settings-focus-parity.json` (2026-06-22T09:23 — VM `<lab-inventory:linux-kde-neon-kde-settings>`).
 
 | # | shotId | Surface Capsule | Φ_norm shot | Focus crop min | Statut |
 |---|--------|-----------------|-------------|----------------|--------|

@@ -1,15 +1,19 @@
 #!/usr/bin/env node
 /**
+ * SPDX-FileCopyrightText: 2020-2026 les contributeurs CapsuleOS
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ *
  * Pull theme-previews depuis preview.png Plasma LookAndFeel (VM KDE Neon).
  *
  * Usage :
- *   node usr/lib/capsuleos/tools/lab/pull-kde-neon-settings-theme-previews.mjs --write
+ *   KDE_NEON_SSH=<lab-inventory:linux-kde-neon> node usr/lib/capsuleos/tools/lab/pull-kde-neon-settings-theme-previews.mjs --write
  *   node usr/lib/capsuleos/tools/lab/pull-kde-neon-settings-theme-previews.mjs --write --only appearance-oxygen-vm.png
  */
 import fs from 'fs';
 import path from 'path';
 import { spawnSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import { resolveInventoryField } from './lab-inventory-resolve.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../../..');
 const MANIFEST = path.join(ROOT, 'root/tools/lab/kde-neon-settings-theme-previews-manifest.json');
@@ -20,7 +24,11 @@ const onlyOut = onlyIdx >= 0 ? process.argv[onlyIdx + 1] : null;
 const manifest = JSON.parse(fs.readFileSync(MANIFEST, 'utf8'));
 const destBase = path.join(ROOT, manifest.destDir);
 const archiveDir = path.join(path.dirname(destBase), 'source-previews');
-const sshTarget = process.env.KDE_NEON_SSH || 'capsule@192.168.1.84';
+const sshTarget = process.env.KDE_NEON_SSH || resolveInventoryField('linux-kde-neon', 'ssh');
+if (!sshTarget) {
+  console.error('pull-kde-neon-settings-theme-previews — KDE_NEON_SSH ou etc/capsuleos/lab-inventory.json requis');
+  process.exit(1);
+}
 const identity = process.env.KDE_NEON_SSH_IDENTITY || `${process.env.HOME}/.ssh/capsuleos-lab`;
 const sshOpts = ['-o', 'BatchMode=yes', '-o', 'IdentitiesOnly=yes', '-i', identity];
 
@@ -79,7 +87,7 @@ if (write) {
   const sourceTxt = path.join(path.dirname(destBase), 'SOURCE-VM.txt');
   fs.writeFileSync(sourceTxt, [
     `Theme-previews System Settings — preview.png Plasma LookAndFeel (${new Date().toISOString()}).`,
-    `VM : ${sshTarget}`,
+    `VM : <lab-inventory:linux-kde-neon>`,
     'Manifeste : root/tools/lab/kde-neon-settings-theme-previews-manifest.json',
     'Procédure : bash root/tools/lab/pull-kde-neon-settings-theme-previews.sh',
     '',

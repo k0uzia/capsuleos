@@ -6,7 +6,7 @@
       "at": "2026-06-22T07:48:09.316Z"
     }
   },
-  "vm": "capsule@192.168.1.84",
+  "vm": "<lab-inventory:linux-kde-neon>",
   "inventoryAt": "2026-06-22T07:42:39Z",
   "note": "Re-baseline VM physique — bootstrap + inventaire OK"
 }

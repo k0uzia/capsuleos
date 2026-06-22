@@ -3,12 +3,14 @@
 #
 # Usage :
 #   bash root/tools/lab/pull-kde-neon-settings-theme-previews.sh
-#   bash root/tools/lab/pull-kde-neon-settings-theme-previews.sh --ssh capsule@192.168.124.6
+#   KDE_NEON_SSH=<lab-inventory:linux-kde-neon> bash root/tools/lab/pull-kde-neon-settings-theme-previews.sh
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
+# shellcheck source=lab-inventory-ssh.sh
+source "$(dirname "$0")/lab-inventory-ssh.sh"
 MANIFEST="$ROOT/root/tools/lab/kde-neon-settings-theme-previews-manifest.json"
-SSH_TARGET="${KDE_NEON_SSH:-capsule@192.168.124.6}"
+SSH_TARGET="${KDE_NEON_SSH:-$(resolve_lab_ssh linux-kde-neon KDE_NEON_SSH)}"
 IDENTITY="${KDE_NEON_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 
 while [[ $# -gt 0 ]]; do
@@ -18,12 +20,12 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-SSH_OPTS=(-o BatchMode=yes -o IdentitiesOnly=yes -i "$IDENTITY")
+export KDE_NEON_SSH="$SSH_TARGET"
 DEST_REL="$(node -e "console.log(JSON.parse(require('fs').readFileSync('$MANIFEST','utf8')).destDir)")"
 DEST="$ROOT/$DEST_REL"
 mkdir -p "$DEST"
 
-echo "=== Pull theme-previews KDE Neon ($SSH_TARGET) → $DEST_REL ==="
+echo "=== Pull theme-previews KDE Neon (<lab-inventory:linux-kde-neon>) → $DEST_REL ==="
 
 node "$ROOT/usr/lib/capsuleos/tools/lab/pull-kde-neon-settings-theme-previews.mjs" --write
 

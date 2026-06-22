@@ -4,7 +4,7 @@ Sources archivées :
 - breeze-light-capsule-desktop.png — capture desktop Breeze clair (2879×1799)
 - breeze-dark-capsule-desktop.png — capture desktop Breeze sombre (2879×1799)
 - twilight-lnf-vm-preview.png — preview LnF org.kde.breezetwilight (clair-obscur violet, VM)
-- oxygen-lnf-vm-preview.png — preview LnF org.kde.oxygen (VM capsule@192.168.1.84)
+- oxygen-lnf-vm-preview.png — preview LnF org.kde.oxygen (VM <lab-inventory:linux-kde-neon>)
 
 Dérivés (cover-crop LANCZOS / diagonal, PNG optimisé) → theme-previews/ :
 - hub-breeze-vm.png, plasma-breeze-vm.png, plasma-light-vm.png — 600×337 ← breeze-light
@@ -16,10 +16,10 @@ Dérivés (cover-crop LANCZOS / diagonal, PNG optimisé) → theme-previews/ :
 - appearance-oxygen-vm.png — 200×130 ← oxygen-lnf-vm-preview.png
 
 Procédure twilight / oxygen LnF :
-  KDE_NEON_SSH=capsule@192.168.1.84 \
+  KDE_NEON_SSH=<lab-inventory:linux-kde-neon> \
     node usr/lib/capsuleos/tools/lab/pull-kde-neon-settings-theme-previews.mjs \
     --write --only appearance-twilight-vm.png
-  KDE_NEON_SSH=capsule@192.168.1.84 \
+  KDE_NEON_SSH=<lab-inventory:linux-kde-neon> \
     node usr/lib/capsuleos/tools/lab/pull-kde-neon-settings-theme-previews.mjs \
     --write --only appearance-oxygen-vm.png
 

@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 /**
+ * SPDX-FileCopyrightText: 2020-2026 les contributeurs CapsuleOS
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ *
  * Gate packages contrib apps (manifest + slot référencé).
  * Usage : node usr/lib/capsuleos/tools/validate-contrib-packages.mjs
  */

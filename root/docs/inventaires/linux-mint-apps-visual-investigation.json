@@ -3,7 +3,7 @@
   "registryId": "linux-mint",
   "updatedAt": "2026-06-22T14:25:39.504Z",
   "procedure": "procedure-apps-replication-formelle.md",
-  "uiComponentsContract": "etc/capsuleos/contracts/ui-components-gnome.json",
+  "uiComponentsContract": "etc/capsuleos/contracts/ui-components-cinnamon.json",
   "summary": {
     "documentedP0": 16,
     "vmCapturesP0": 2,
@@ -22,30 +22,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -54,10 +49,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -66,10 +59,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -78,10 +69,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -101,30 +90,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -133,10 +117,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -145,10 +127,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -157,10 +137,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -180,30 +158,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -212,10 +185,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -224,10 +195,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -236,10 +205,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -259,30 +226,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -291,10 +253,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -303,10 +263,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -315,10 +273,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -338,30 +294,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -370,10 +321,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -382,10 +331,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -394,10 +341,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -417,30 +362,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -449,10 +389,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -461,10 +399,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -473,10 +409,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -631,30 +565,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -663,10 +592,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -675,10 +602,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -687,10 +612,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -724,30 +647,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -756,10 +674,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -768,10 +684,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -780,10 +694,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -968,30 +880,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -1000,10 +907,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -1012,10 +917,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -1024,10 +927,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -1047,30 +948,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -1079,10 +975,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -1091,10 +985,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -1103,10 +995,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -1126,30 +1016,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -1158,10 +1043,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -1170,10 +1053,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -1182,10 +1063,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -1205,30 +1084,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -1237,10 +1111,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -1249,10 +1121,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -1261,10 +1131,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -1312,30 +1180,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -1344,10 +1207,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -1356,10 +1217,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -1368,10 +1227,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -1391,30 +1248,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -1423,10 +1275,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -1435,10 +1285,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -1447,10 +1295,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -1470,30 +1316,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -1502,10 +1343,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -1514,10 +1353,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -1526,10 +1363,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -1716,30 +1551,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -1748,10 +1578,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -1760,10 +1588,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -1772,10 +1598,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -1795,30 +1619,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -1827,10 +1646,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -1839,10 +1656,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -1851,10 +1666,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -1874,30 +1687,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -1906,10 +1714,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -1918,10 +1724,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -1930,10 +1734,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -1953,30 +1755,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -1985,10 +1782,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -1997,10 +1792,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -2009,10 +1802,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -2032,34 +1823,25 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Fichiers (Nautilus)",
+        "labelFr": "Nemo",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-navigation-split",
-          "gnome.gtk-column-view",
-          "gnome.gtk-search-entry"
+          "cinnamon.muffin-window",
+          "cinnamon.nemo-explorer"
         ],
         "acquisitionOrder": [
-          "sidebar",
-          "column-headers",
-          "pathbar",
-          "context-menu-item",
-          "context-menu-background",
-          "trash"
+          "toolbar",
+          "places-sidebar",
+          "context-menu"
         ],
-        "chromeProvider": "nemo-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-navigation-split",
-            "gnome.gtk-column-view",
-            "gnome.gtk-search-entry"
+            "cinnamon.muffin-window",
+            "cinnamon.nemo-explorer"
           ],
           "labelFr": "sidebar",
           "status": "pending",
@@ -2068,11 +1850,8 @@
         {
           "shotId": "column-headers",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-navigation-split",
-            "gnome.gtk-column-view",
-            "gnome.gtk-search-entry"
+            "cinnamon.muffin-window",
+            "cinnamon.nemo-explorer"
           ],
           "labelFr": "column headers",
           "status": "pending",
@@ -2081,11 +1860,8 @@
         {
           "shotId": "pathbar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-navigation-split",
-            "gnome.gtk-column-view",
-            "gnome.gtk-search-entry"
+            "cinnamon.muffin-window",
+            "cinnamon.nemo-explorer"
           ],
           "labelFr": "pathbar",
           "status": "pending",
@@ -2094,11 +1870,8 @@
         {
           "shotId": "context-menu-item",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-navigation-split",
-            "gnome.gtk-column-view",
-            "gnome.gtk-search-entry"
+            "cinnamon.muffin-window",
+            "cinnamon.nemo-explorer"
           ],
           "labelFr": "context menu item",
           "status": "pending",
@@ -2107,11 +1880,8 @@
         {
           "shotId": "context-menu-background",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-navigation-split",
-            "gnome.gtk-column-view",
-            "gnome.gtk-search-entry"
+            "cinnamon.muffin-window",
+            "cinnamon.nemo-explorer"
           ],
           "labelFr": "context menu background",
           "status": "pending",
@@ -2120,11 +1890,8 @@
         {
           "shotId": "trash",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-navigation-split",
-            "gnome.gtk-column-view",
-            "gnome.gtk-search-entry"
+            "cinnamon.muffin-window",
+            "cinnamon.nemo-explorer"
           ],
           "labelFr": "trash",
           "status": "pending",
@@ -2141,7 +1908,7 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "documented — acquisitionOrder ui-components-cinnamon.json"
     },
     {
       "controlId": "firefox",
@@ -2155,10 +1922,8 @@
           "cinnamon.muffin-window"
         ],
         "acquisitionOrder": [
-          "tab-bar",
-          "url-bar",
-          "bookmarks",
-          "menu-hamburger"
+          "tabs",
+          "url-bar"
         ],
         "chromeProvider": "cinnamon",
         "referenceRegistryId": "linux-mint"
@@ -2229,30 +1994,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -2261,10 +2021,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -2273,10 +2031,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -2285,10 +2041,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -2336,30 +2090,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -2368,10 +2117,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -2380,10 +2127,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -2392,10 +2137,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -2415,30 +2158,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -2447,10 +2185,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -2459,10 +2195,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -2471,10 +2205,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -2573,38 +2305,22 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Logiciels (GNOME Software)",
+        "labelFr": "Gestionnaire de mises à jour",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.software-search-toggle",
-          "gnome.software-hero",
-          "gnome.software-grid",
-          "gnome.software-detail-pane",
-          "gnome.gtk-search-entry"
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
-          "explore-grid",
-          "featured-hero",
-          "category-heroes",
-          "updates-banner",
-          "app-detail",
-          "categories"
+          "updates-list",
+          "changelog"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-fedora"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "explore-grid",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "explore grid",
           "status": "pending",
@@ -2613,13 +2329,7 @@
         {
           "shotId": "featured-hero",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "featured hero",
           "status": "pending",
@@ -2628,13 +2338,7 @@
         {
           "shotId": "category-heroes",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "category heroes",
           "status": "pending",
@@ -2643,13 +2347,7 @@
         {
           "shotId": "updates-banner",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "updates banner",
           "status": "pending",
@@ -2658,13 +2356,7 @@
         {
           "shotId": "app-detail",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "app detail",
           "status": "pending",
@@ -2673,13 +2365,7 @@
         {
           "shotId": "categories",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "categories",
           "status": "pending",
@@ -2696,7 +2382,7 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "documented — acquisitionOrder ui-components-cinnamon.json"
     },
     {
       "controlId": "update_manager",
@@ -2705,38 +2391,22 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Logiciels (GNOME Software)",
+        "labelFr": "Gestionnaire de mises à jour",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.software-search-toggle",
-          "gnome.software-hero",
-          "gnome.software-grid",
-          "gnome.software-detail-pane",
-          "gnome.gtk-search-entry"
+          "cinnamon.xapp-window"
         ],
         "acquisitionOrder": [
-          "explore-grid",
-          "featured-hero",
-          "category-heroes",
-          "updates-banner",
-          "app-detail",
-          "categories"
+          "updates-list",
+          "changelog"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-fedora"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "explore-grid",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "explore grid",
           "status": "pending",
@@ -2745,13 +2415,7 @@
         {
           "shotId": "featured-hero",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "featured hero",
           "status": "pending",
@@ -2760,13 +2424,7 @@
         {
           "shotId": "category-heroes",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "category heroes",
           "status": "pending",
@@ -2775,13 +2433,7 @@
         {
           "shotId": "updates-banner",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "updates banner",
           "status": "pending",
@@ -2790,13 +2442,7 @@
         {
           "shotId": "app-detail",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "app detail",
           "status": "pending",
@@ -2805,13 +2451,7 @@
         {
           "shotId": "categories",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.software-search-toggle",
-            "gnome.software-hero",
-            "gnome.software-grid",
-            "gnome.software-detail-pane",
-            "gnome.gtk-search-entry"
+            "cinnamon.xapp-window"
           ],
           "labelFr": "categories",
           "status": "pending",
@@ -2828,7 +2468,7 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "documented — acquisitionOrder ui-components-cinnamon.json"
     },
     {
       "controlId": "mintdrivers",
@@ -2851,30 +2491,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -2883,10 +2518,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -2895,10 +2528,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -2907,10 +2538,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -2930,30 +2559,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -2962,10 +2586,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -2974,10 +2596,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -2986,10 +2606,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -3023,30 +2641,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -3055,10 +2668,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -3067,10 +2678,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -3079,10 +2688,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -3102,30 +2709,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -3134,10 +2736,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -3146,10 +2746,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -3158,10 +2756,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -3181,30 +2777,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -3213,10 +2804,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -3225,10 +2814,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -3237,10 +2824,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -3260,30 +2845,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -3292,10 +2872,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -3304,10 +2882,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -3316,10 +2892,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -3710,30 +3284,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -3742,10 +3311,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -3754,10 +3321,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -3766,10 +3331,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -3913,30 +3476,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -3945,10 +3503,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -3957,10 +3513,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -3969,10 +3523,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -3992,30 +3544,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -4024,10 +3571,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -4036,10 +3581,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -4048,10 +3591,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -4071,30 +3612,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -4103,10 +3639,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -4115,10 +3649,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -4127,10 +3659,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -4164,30 +3694,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -4196,10 +3721,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -4208,10 +3731,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -4220,10 +3741,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -4301,30 +3820,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -4333,10 +3847,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -4345,10 +3857,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -4357,10 +3867,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -4394,30 +3902,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -4426,10 +3929,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -4438,10 +3939,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -4450,10 +3949,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -4473,30 +3970,25 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -4505,10 +3997,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -4517,10 +4007,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -4529,10 +4017,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -4544,7 +4030,7 @@
       "capsuleParity": {
         "visualMatch": "unknown"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "documented — acquisitionOrder ui-components-cinnamon.json"
     },
     {
       "controlId": "themes",
@@ -4553,30 +4039,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -4585,10 +4066,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -4597,10 +4076,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -4609,10 +4086,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -4632,27 +4107,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Loupe (images)",
+        "labelFr": "Pix (visionneur d'images)",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-toolbar-view",
-          "gnome.media-viewer"
+          "cinnamon.muffin-window",
+          "cinnamon.xviewer-app"
         ],
         "acquisitionOrder": [
           "toolbar",
           "image-canvas",
-          "metadata-pane"
+          "status-bar"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "toolbar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.media-viewer"
+            "cinnamon.muffin-window",
+            "cinnamon.xviewer-app"
           ],
           "labelFr": "toolbar",
           "status": "pending",
@@ -4661,9 +4134,8 @@
         {
           "shotId": "image-canvas",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.media-viewer"
+            "cinnamon.muffin-window",
+            "cinnamon.xviewer-app"
           ],
           "labelFr": "image canvas",
           "status": "pending",
@@ -4672,9 +4144,8 @@
         {
           "shotId": "metadata-pane",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-toolbar-view",
-            "gnome.media-viewer"
+            "cinnamon.muffin-window",
+            "cinnamon.xviewer-app"
           ],
           "labelFr": "metadata pane",
           "status": "pending",
@@ -4708,30 +4179,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -4740,10 +4206,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -4752,10 +4216,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -4764,10 +4226,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -4787,30 +4247,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -4819,10 +4274,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -4831,10 +4284,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -4843,10 +4294,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -4866,30 +4315,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -4898,10 +4342,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -4910,10 +4352,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -4922,10 +4362,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -4945,30 +4383,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -4977,10 +4410,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -4989,10 +4420,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -5001,10 +4430,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -5038,30 +4465,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -5070,10 +4492,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -5082,10 +4502,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -5094,10 +4512,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -5179,30 +4595,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -5211,10 +4622,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -5223,10 +4632,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -5235,10 +4642,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -5272,30 +4677,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -5304,10 +4704,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -5316,10 +4714,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -5328,10 +4724,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -5351,30 +4745,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -5383,10 +4772,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -5395,10 +4782,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -5407,10 +4792,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -5430,30 +4813,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -5462,10 +4840,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -5474,10 +4850,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -5486,10 +4860,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -5537,30 +4909,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -5569,10 +4936,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -5581,10 +4946,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -5593,10 +4956,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -5616,26 +4977,22 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Terminal (Ptyxis)",
+        "labelFr": "Terminal",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.terminal-chrome"
+          "cinnamon.muffin-window"
         ],
         "acquisitionOrder": [
-          "headerbar",
-          "tab-strip",
-          "prompt-colors",
-          "preferences"
+          "window-chrome",
+          "tabs"
         ],
-        "chromeProvider": "terminal-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "headerbar",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.terminal-chrome"
+            "cinnamon.muffin-window"
           ],
           "labelFr": "headerbar",
           "status": "pending",
@@ -5644,8 +5001,7 @@
         {
           "shotId": "tab-strip",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.terminal-chrome"
+            "cinnamon.muffin-window"
           ],
           "labelFr": "tab strip",
           "status": "pending",
@@ -5654,8 +5010,7 @@
         {
           "shotId": "prompt-colors",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.terminal-chrome"
+            "cinnamon.muffin-window"
           ],
           "labelFr": "prompt colors",
           "status": "pending",
@@ -5664,8 +5019,7 @@
         {
           "shotId": "preferences",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.terminal-chrome"
+            "cinnamon.muffin-window"
           ],
           "labelFr": "preferences",
           "status": "pending",
@@ -5682,7 +5036,7 @@
       "capsuleParity": {
         "visualMatch": "partial"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "documented — acquisitionOrder ui-components-cinnamon.json"
     },
     {
       "controlId": "themes",
@@ -5691,30 +5045,25 @@
       "parityPriority": "P0",
       "status": "documented",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -5723,10 +5072,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -5735,10 +5082,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -5747,10 +5092,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -5762,7 +5105,7 @@
       "capsuleParity": {
         "visualMatch": "unknown"
       },
-      "note": "documented — acquisitionOrder ui-components-gnome.json"
+      "note": "documented — acquisitionOrder ui-components-cinnamon.json"
     },
     {
       "controlId": "thunderbird",
@@ -5829,30 +5172,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -5861,10 +5199,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -5873,10 +5209,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -5885,10 +5219,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -6028,30 +5360,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -6060,10 +5387,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -6072,10 +5397,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -6084,10 +5407,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -6182,7 +5503,7 @@
       "parityPriority": "P1",
       "status": "pending",
       "composition": {
-        "labelFr": "Pix (xviewer)",
+        "labelFr": "Pix (visionneur d'images)",
         "components": [
           "cinnamon.muffin-window",
           "cinnamon.xviewer-app"
@@ -6356,30 +5677,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -6388,10 +5704,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -6400,10 +5714,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -6412,10 +5724,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",
@@ -6435,30 +5745,25 @@
       "parityPriority": "P2",
       "status": "pending",
       "composition": {
-        "labelFr": "Paramètres",
+        "labelFr": "Paramètres système",
         "components": [
-          "gnome.adw-application-window",
-          "gnome.adw-header-bar",
-          "gnome.adw-preferences-page",
-          "gnome.adw-preferences-group"
+          "cinnamon.muffin-window",
+          "cinnamon.settings-panels"
         ],
         "acquisitionOrder": [
-          "sidebar-panels",
-          "wifi-row",
+          "panel-list",
           "display-panel",
-          "about-panel"
+          "themes-panel"
         ],
-        "chromeProvider": "libadwaita-gnome",
-        "referenceRegistryId": "linux-rocky"
+        "chromeProvider": "cinnamon",
+        "referenceRegistryId": "linux-mint"
       },
       "componentShots": [
         {
           "shotId": "sidebar-panels",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "sidebar panels",
           "status": "pending",
@@ -6467,10 +5772,8 @@
         {
           "shotId": "wifi-row",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "wifi row",
           "status": "pending",
@@ -6479,10 +5782,8 @@
         {
           "shotId": "display-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "display panel",
           "status": "pending",
@@ -6491,10 +5792,8 @@
         {
           "shotId": "about-panel",
           "componentIds": [
-            "gnome.adw-application-window",
-            "gnome.adw-header-bar",
-            "gnome.adw-preferences-page",
-            "gnome.adw-preferences-group"
+            "cinnamon.muffin-window",
+            "cinnamon.settings-panels"
           ],
           "labelFr": "about panel",
           "status": "pending",

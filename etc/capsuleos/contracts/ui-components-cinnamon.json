@@ -108,7 +108,7 @@
       "vmDesktopIds": ["nemo.desktop", "nemo-autorun.desktop"],
       "planned": true,
       "components": ["cinnamon.muffin-window", "cinnamon.nemo-explorer"],
-      "template": "usr/share/capsuleos/linux/explorers/nemo.html",
+      "template": "usr/share/capsuleos/linux/apps/nemo.html",
       "baseCss": "usr/share/capsuleos/linux/apps/style/nemo.base.css",
       "skinCss": "nemo.skin.css",
       "chromeProvider": "cinnamon",

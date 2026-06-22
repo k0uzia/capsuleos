@@ -1,6 +1,6 @@
 registryId=linux-mint
-ssh=<lab-inventory:linux-lab>
-collectedAt=2026-06-21T15:38:00Z
+ssh=lacapsule@192.168.1.70
+collectedAt=2026-06-22T14:34:30Z
 firefoxPackage=Mozilla Firefox 146.0.1
 sources:
   chrome/*.svg → /usr/lib/firefox/browser/omni.ja (Mozilla Firefox, MPL-2.0)
@@ -10,4 +10,3 @@ sources:
   newtab/{amazon,temu,aliexpress}.jpg → contile.services.mozilla.com (tuiles sponsorisées FR)
   newtab/{wikipedia,youtube,lemonde,reddit}.ico → favicons sites (fetch VM)
 inventory: root/docs/inventaires/linux-mint-firefox-vm-shortcuts.json
-Connexion SSH : etc/capsuleos/lab-inventory.json (local, gitignoré).

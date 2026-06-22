@@ -1,6 +1,6 @@
 # Clôture Discover — KDE neon User Edition
 
-> **Statut** : 🔄 réouvert (2026-06-11) — sidebar icônes Breeze VM · clôture initiale 2026-06-06 · Registre `linux-kde-neon`  
+> **Statut** : ✅ clôturé Capsule + VM session lab (2026-06-20) — baselines KdVp regénérées · sidebar Breeze pullée · `run-kde-neon-pass` 17/17 · VM pivot session exceptionnelle (IP via `lab-inventory.json` gitignoré) · clôture initiale 2026-06-06 · Registre `linux-kde-neon`  
 > Parité globale skin : [`inventaire-parite-neon.md`](../inventaire-parite-neon.md)  
 > Checklist réparation : [`linux-kde-neon-repair-checklist.md`](linux-kde-neon-repair-checklist.md)
 
@@ -55,8 +55,31 @@ node root/tools/lab/capture-capsule-kde-neon.mjs
 |---------|--------|------|
 | `vm-discover.png` | Discover ouvert (accueil) | virsh screenshot |
 | `vm-discover-installed.png` | Installé(s) (liste) | capture stable (recette G6 / recursive) |
+| `vm-discover-installed-detail-*.png` | Fiches Installé(s) (14 apps) | `--discover-installed-details` · ouverture `plasma-discover --application <componentId>` · saisie virsh/QEMU ou ydotool (sans `wtype`) |
 
-Captures VM par onglet : **réalisées** (G6 + fiche VLC). Reste la passe **fiches Installé(s) en détail** (Wayland : nécessite `wtype` sur la VM lab).
+Captures VM par onglet : **réalisées** (G6 + fiche VLC catalogue + fiches Installé(s)).
+
+## Gates (2026-06-20 — VM session lab exceptionnelle)
+
+```bash
+export KDE_NEON_SSH=capsule@<ip-lab>   # etc/capsuleos/lab-inventory.json (gitignoré)
+python3 -m http.server 5500
+node usr/lib/capsuleos/tools/lab/capture-clone-surfaces.mjs --id linux-kde-neon --write-baseline --compare
+bash root/tools/lab/vm-kde-neon-capture-host.sh --discover-vm-100
+bash root/tools/lab/vm-kde-neon-capture-host.sh --discover-installed-details   # Kde_NEON_SUDO_PASSWORD si ydotool
+node usr/lib/capsuleos/tools/lab/smoke-discover-vm-parity.mjs
+CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/run-kde-neon-pass.mjs --write   # passOk 17/17
+```
+
+## Gates (2026-06-19)
+
+```bash
+python3 -m http.server 5500
+CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/run-kde-neon-pass.mjs --skip-runtime   # OK
+node usr/lib/capsuleos/tools/lab/smoke-kde-neon-discover.mjs                                                  # OK
+node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs                                                # OK
+node usr/lib/capsuleos/tools/validate-all.mjs                                                                 # OK
+```
 
 ## Gates (2026-06-06)
 
@@ -71,11 +94,10 @@ node usr/lib/capsuleos/tools/linux/build-linux-embed.mjs         # après edits 
 | Écart | Priorité | Note |
 |-------|----------|------|
 | Recherche Discover | ✅ | Filtre accueil + installé (juin 2026) |
-| Captures VM fiches Installé(s) | P1 | Bloqué tant que `wtype` absent sur la VM lab (Wayland) |
-| Tokens CSS `--opensuse-*` hérités | P2 | Renommage `--kde-neon-*` |
+| Captures VM fiches Installé(s) | ✅ | Contournement Wayland : `systemd-run plasma-discover --application …` + virsh send-key / ydotool · `smoke-discover-vm-parity` (14 paires) |
+| Tokens CSS `--opensuse-*` hérités | ✅ | Renommé `--kde-neon-*` (`debian-desktop.css`, `footer.css`) |
 
 ## Prochaine étape skin (post-Discover)
 
-1. **Kickoff** — favoris VM, dimensions popup (phase B checklist)
-2. **Dolphin** (`nemo`) — explorateur P0 apps panel
-3. Passage `status: active` dans `etc/capsuleos/profiles/linux-kde-neon.json` après parité bureau P0 complète
+1. **P2 polish** — Firefox nouvel onglet (raccourcis VM Google), tray popovers contenu détaillé
+2. **Kickoff / Dolphin / Panel** — clôturés (voir docs dédiées) · profil `status: active`

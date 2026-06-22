@@ -47,13 +47,13 @@ if (!html.includes('data-kde-settings-surface="hub"')) {
 const shotMarkers = {
   'kcm-display-config': 'data-kde-settings-surface="kcm-display"',
   'hub-sidebar': 'data-kde-settings-surface="hub"',
-  'appearance-panel': 'data-kde-settings-surface="kcm-lookandfeel"',
+  'appearance-panel': 'data-kde-settings-surface="kcm-themes"',
   'accessibility-panel': 'data-kde-settings-surface="kcm-access"',
-  'desktop-panel': 'data-kde-settings-surface="kcm-plasma-style"',
+  'desktop-panel': 'data-kde-settings-surface="kcm-themes"',
   'workspace-panel': 'data-kde-panel-content="workspace"',
   'notifications-panel': 'data-kde-panel-content="notifications"',
-  'applications-panel': 'data-kde-panel-content="applications"',
-  'colors-panel': 'data-kde-settings-surface="kcm-colors"',
+  'applications-panel': 'data-kde-settings-surface="kcm-applications"',
+  'colors-panel': 'data-kde-settings-surface="kcm-themes"',
   'about-panel': 'data-kde-panel-content="about"',
 };
 

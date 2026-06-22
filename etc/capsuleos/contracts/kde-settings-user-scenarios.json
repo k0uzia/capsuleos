@@ -21,7 +21,7 @@
       "locale": "fr-FR",
       "steps": [
         { "id": "open-settings", "action": "openWindowByDataLink", "target": "themes" },
-        { "id": "nav-lookandfeel", "selector": "[data-kde-kcm-link=\"kcm-lookandfeel\"]", "label": "Ouvrir thème global" },
+        { "id": "nav-lookandfeel", "selector": "[data-kde-settings-surface=\"kcm-themes\"] [data-kde-panel=\"lookandfeel\"]", "label": "Ouvrir thème global" },
         { "id": "pick-dark", "selector": "[data-kde-setting=\"kde-global-theme\"][data-kde-theme-option=\"dark\"]", "label": "Style sombre" }
       ],
       "proofs": { "smoke": "smoke-h6-kde-settings-ready.mjs --id linux-kde-neon" }

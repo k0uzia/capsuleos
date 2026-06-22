@@ -1,7 +1,7 @@
 {
   "registryId": "linux-kde-neon",
   "toolkit": "kde",
-  "collectedAt": "2026-06-16T08:55:01Z",
+  "collectedAt": "2026-06-20T16:44:05Z",
   "os": {
     "prettyName": "KDE neon User Edition",
     "name": "KDE neon",
@@ -56,6 +56,7 @@
       }
     ],
     "wallpaperDirs": [
+      "Air",
       "Altai",
       "Autumn",
       "BytheWater",
@@ -73,6 +74,7 @@
       "FlyingKonqui",
       "Grey",
       "Honeywave",
+      "Horos",
       "IceCold",
       "Kay",
       "Kite",
@@ -83,9 +85,7 @@
       "Nexus",
       "Nuvole",
       "OneStandsOut",
-      "Opal",
-      "Orionids",
-      "PastelHills"
+      "Opal"
     ],
     "kickoff": {
       "popupWidth": 677,
@@ -126,5 +126,6 @@
   },
   "branding": {
     "logoCandidates": []
-  }
+  },
+  "sessionNote": "Inventaire VM lab session exceptionnelle — référence pivot remplace ancienne VM Neon indisponible; IP/host via etc/capsuleos/lab-inventory.json (gitignoré)."
 }

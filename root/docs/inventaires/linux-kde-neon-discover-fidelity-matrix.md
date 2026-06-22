@@ -29,8 +29,7 @@
 - VM : `vm-discover-installed.png`
 - Capsule : `capsule-discover-installed.png`, `capsule-discover-installed-windowed.png`
 - Smokes : `smoke-discover-vm-parity.mjs`, `smoke-kde-neon-discover.mjs`
-- Écarts connus :
-  - La capture VM des fiches Installé(s) est actuellement bloquée sans `wtype` sur la VM (Wayland).
+- Écarts connus : aucun bloquant (liste VM ↔ Capsule OK).
 
 ### Fiche application (store : catalogue CapsuleOS)
 
@@ -50,11 +49,11 @@
 
 ### Fiches Installé(s) (Ark, Dolphin, etc.)
 
-- VM : `vm-discover-installed-detail-*.png` (attendu) — actuellement : captures list view tant que VM sans `wtype`.
+- VM : `vm-discover-installed-detail-*.png` (14 fiches, `--discover-installed-details`)
 - Capsule : `capsule-discover-installed-detail-*.png`
-- Smokes : `smoke-discover-neon-installed-details.mjs`
-- Écarts connus :
-  - Structuration description (titres + listes) à auditer app par app après recapture VM.
+- Smokes : `smoke-discover-neon-installed-details.mjs`, `smoke-discover-vm-parity.mjs` (paires détail)
+- Écarts connus (P2) :
+  - Structuration description (titres + listes) à affiner app par app vs VM (audit micro, non bloquant).
 
 ### Mises à jour (Updates)
 

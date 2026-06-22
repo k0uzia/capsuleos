@@ -21,6 +21,20 @@ const pairs = [
   ['vm-discover-detail-vlc-scrolled.png', 'capsule-discover-detail-vlc-scrolled.png'],
 ];
 
+const installedDetailsPath = path.join(
+  ROOT,
+  'root/docs/inventaires/linux-kde-neon-discover-installed-app-details.json',
+);
+if (fs.existsSync(installedDetailsPath)) {
+  const { installedIds = [] } = JSON.parse(fs.readFileSync(installedDetailsPath, 'utf8'));
+  for (const id of installedIds) {
+    pairs.push([
+      `vm-discover-installed-detail-${id}.png`,
+      `capsule-discover-installed-detail-${id}.png`,
+    ]);
+  }
+}
+
 const errors = [];
 
 for (const [vm, cap] of pairs) {

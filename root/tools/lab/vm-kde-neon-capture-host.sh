@@ -840,42 +840,144 @@ capture_discover_category_internet_shot() {
 
 INSTALLED_DETAILS_INVENTORY="$ROOT/root/docs/inventaires/linux-kde-neon-discover-installed-app-details.json"
 
+discover_qemu_type_ascii() {
+  local text="$1"
+  local i char lower
+  for ((i = 0; i < ${#text}; i++)); do
+    char="${text:i:1}"
+    lower="$(printf '%s' "$char" | tr '[:upper:]' '[:lower:]')"
+    if [ "$char" != "$lower" ]; then
+      case "$lower" in
+        a) qemu_send_keys_slow KEY_LEFTSHIFT KEY_A ;;
+        b) qemu_send_keys_slow KEY_LEFTSHIFT KEY_B ;;
+        c) qemu_send_keys_slow KEY_LEFTSHIFT KEY_C ;;
+        d) qemu_send_keys_slow KEY_LEFTSHIFT KEY_D ;;
+        e) qemu_send_keys_slow KEY_LEFTSHIFT KEY_E ;;
+        f) qemu_send_keys_slow KEY_LEFTSHIFT KEY_F ;;
+        g) qemu_send_keys_slow KEY_LEFTSHIFT KEY_G ;;
+        h) qemu_send_keys_slow KEY_LEFTSHIFT KEY_H ;;
+        i) qemu_send_keys_slow KEY_LEFTSHIFT KEY_I ;;
+        j) qemu_send_keys_slow KEY_LEFTSHIFT KEY_J ;;
+        k) qemu_send_keys_slow KEY_LEFTSHIFT KEY_K ;;
+        l) qemu_send_keys_slow KEY_LEFTSHIFT KEY_L ;;
+        m) qemu_send_keys_slow KEY_LEFTSHIFT KEY_M ;;
+        n) qemu_send_keys_slow KEY_LEFTSHIFT KEY_N ;;
+        o) qemu_send_keys_slow KEY_LEFTSHIFT KEY_O ;;
+        p) qemu_send_keys_slow KEY_LEFTSHIFT KEY_P ;;
+        q) qemu_send_keys_slow KEY_LEFTSHIFT KEY_Q ;;
+        r) qemu_send_keys_slow KEY_LEFTSHIFT KEY_R ;;
+        s) qemu_send_keys_slow KEY_LEFTSHIFT KEY_S ;;
+        t) qemu_send_keys_slow KEY_LEFTSHIFT KEY_T ;;
+        u) qemu_send_keys_slow KEY_LEFTSHIFT KEY_U ;;
+        v) qemu_send_keys_slow KEY_LEFTSHIFT KEY_V ;;
+        w) qemu_send_keys_slow KEY_LEFTSHIFT KEY_W ;;
+        x) qemu_send_keys_slow KEY_LEFTSHIFT KEY_X ;;
+        y) qemu_send_keys_slow KEY_LEFTSHIFT KEY_Y ;;
+        z) qemu_send_keys_slow KEY_LEFTSHIFT KEY_Z ;;
+      esac
+    else
+      case "$lower" in
+        a) qemu_send_keys_slow KEY_A ;;
+        b) qemu_send_keys_slow KEY_B ;;
+        c) qemu_send_keys_slow KEY_C ;;
+        d) qemu_send_keys_slow KEY_D ;;
+        e) qemu_send_keys_slow KEY_E ;;
+        f) qemu_send_keys_slow KEY_F ;;
+        g) qemu_send_keys_slow KEY_G ;;
+        h) qemu_send_keys_slow KEY_H ;;
+        i) qemu_send_keys_slow KEY_I ;;
+        j) qemu_send_keys_slow KEY_J ;;
+        k) qemu_send_keys_slow KEY_K ;;
+        l) qemu_send_keys_slow KEY_L ;;
+        m) qemu_send_keys_slow KEY_M ;;
+        n) qemu_send_keys_slow KEY_N ;;
+        o) qemu_send_keys_slow KEY_O ;;
+        p) qemu_send_keys_slow KEY_P ;;
+        q) qemu_send_keys_slow KEY_Q ;;
+        r) qemu_send_keys_slow KEY_R ;;
+        s) qemu_send_keys_slow KEY_S ;;
+        t) qemu_send_keys_slow KEY_T ;;
+        u) qemu_send_keys_slow KEY_U ;;
+        v) qemu_send_keys_slow KEY_V ;;
+        w) qemu_send_keys_slow KEY_W ;;
+        x) qemu_send_keys_slow KEY_X ;;
+        y) qemu_send_keys_slow KEY_Y ;;
+        z) qemu_send_keys_slow KEY_Z ;;
+        " ") qemu_send_keys_slow KEY_SPACE ;;
+      esac
+    fi
+  done
+}
+
+discover_input_type_query() {
+  local query="$1"
+  if vm_ydotool_ready; then
+    remote_session "$(ydotool_env_cmd)ydotool type --delay 40 $(printf '%q' "$query")"
+  elif remote "$(remote_env_prefix)command -v wtype >/dev/null 2>&1)"; then
+    prep_env "wtype $(printf '%q' "$query")"
+  else
+    discover_qemu_type_ascii "$query"
+  fi
+}
+
+discover_input_focus_search() {
+  discover_input_click_pct 12 8
+  sleep 0.35
+  qemu_send_keys_slow KEY_LEFTCTRL KEY_F
+  sleep 0.35
+  qemu_send_keys_slow KEY_LEFTCTRL KEY_A KEY_BACKSPACE
+  sleep 0.25
+}
+
+discover_open_installed_app_by_component() {
+  local component="$1"
+  [ -n "$component" ] || return 1
+  remote_session "killall plasma-discover 2>/dev/null || true
+sleep 1
+systemd-run --user --scope --collect plasma-discover --application $(printf '%q' "$component") >/dev/null 2>&1 &
+for i in \$(seq 1 25); do
+  pgrep plasma-discover >/dev/null && break
+  sleep 1
+done
+sleep 6"
+}
+
 discover_open_installed_app() {
   local query="$1"
-  if ! command -v wtype >/dev/null 2>&1; then
-    echo "discover_open_installed_app: wtype requis sur VM Wayland (sudo apt install wtype)" >&2
-    return 1
-  fi
-  prep_env "sleep 0.3
-    wtype -M ctrl f
-    sleep 0.35
-    wtype -M ctrl a
-    sleep 0.1
-    wtype -k BackSpace
-    sleep 0.2
-    wtype '${query}'
-    sleep 1.2
-    wtype -k Return
-    sleep 2.5"
+  discover_input_focus_search
+  discover_input_type_query "$query"
+  sleep 1.2
+  qemu_send_keys_slow KEY_ENTER
+  sleep 2.5
 }
 
 discover_activate_installed_list_row() {
-  prep_env 'sleep 0.3
-    wtype -k Down
+  sleep 0.3
+  if vm_ydotool_ready; then
+    prep_env "$(ydotool_env_cmd)ydotool key 108:1 108:0
+sleep 0.35
+$(ydotool_env_cmd)ydotool key 28:1 28:0"
+  else
+    qemu_send_keys_slow KEY_DOWN
     sleep 0.35
-    wtype -k Return
-    sleep 2.2'
+    qemu_send_keys_slow KEY_ENTER
+  fi
+  sleep 2.2
 }
 
 discover_back_from_app_detail() {
-  prep_env 'sleep 0.2
-    if command -v xdotool >/dev/null 2>&1; then
-      xdotool key alt+Left 2>/dev/null || true
-      sleep 1.2
-    elif command -v wtype >/dev/null 2>&1; then
-      wtype -M alt Left
-      sleep 1.2
-    fi'
+  sleep 0.2
+  if remote "$(remote_env_prefix)command -v xdotool >/dev/null 2>&1)"; then
+    prep_env 'WID=$(xdotool search --name "Discover" 2>/dev/null | head -1)
+[ -n "$WID" ] && xdotool windowactivate --sync "$WID" 2>/dev/null || true
+sleep 0.2
+xdotool key alt+Left 2>/dev/null || true'
+  elif remote "$(remote_env_prefix)command -v wtype >/dev/null 2>&1)"; then
+    prep_env 'wtype -M alt Left'
+  else
+    qemu_send_keys_slow KEY_LEFTALT KEY_LEFT
+  fi
+  sleep 1.2
 }
 
 capture_discover_installed_detail_shots() {
@@ -902,16 +1004,20 @@ capture_discover_installed_detail_shots() {
     discover_stabilize_for_shot 2
   fi
   local first_live=true
+  ensure_ydotool_ready
+  echo "  input lab : ydotool=$([ "$(vm_ydotool_ready && echo 1 || echo 0)" = 1 ] && echo oui || echo non) · repli virsh/QEMU (sans wtype Wayland)"
   # FD 3 : éviter que ssh/prep_env consomment le reste de la liste via stdin.
-  if ! remote_session 'command -v wtype >/dev/null 2>&1'; then
-    echo "VM lab : installer wtype pour captures fiches Installé(s) (Wayland) — sudo apt install wtype" >&2
-    rm -f "$list_file"
-    return 1
-  fi
-  while IFS=$'\t' read -r app_id query _component_id <&3; do
+  while IFS=$'\t' read -r app_id query component_id <&3; do
     [ -z "$app_id" ] && continue
-    if [ "$live_mode" = "live" ] && [ "$first_live" = true ]; then
+    if [ -n "$component_id" ]; then
+      discover_open_installed_app_by_component "$component_id" || {
+        discover_open_installed_app "$query" || true
+        discover_activate_installed_list_row || true
+      }
+    elif [ "$live_mode" = "live" ] && [ "$first_live" = true ]; then
       first_live=false
+      discover_open_installed_app "$query" || true
+      discover_activate_installed_list_row || true
     else
       discover_back_from_app_detail || true
       discover_open_installed_app "$query" || true
@@ -919,7 +1025,7 @@ capture_discover_installed_detail_shots() {
     fi
     discover_stabilize_for_shot 2 || true
     shot "$DEST/vm-discover-installed-detail-${app_id}.png" || true
-    echo "  → vm-discover-installed-detail-${app_id}.png (${query})"
+    echo "  → vm-discover-installed-detail-${app_id}.png (${query}${component_id:+, ${component_id}})"
   done 3<"$list_file"
   rm -f "$list_file"
   if [ "$live_mode" != "live" ]; then

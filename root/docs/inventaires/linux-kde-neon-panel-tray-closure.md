@@ -1,6 +1,6 @@
 # Clôture Panel + zone de notification — KDE neon User Edition
 
-> **Statut** : 🔄 réouvert (2026-06-11) — réaudit week-end 6–7 juin · clôture initiale 2026-06-06 · Registre `linux-kde-neon`  
+> **Statut** : ✅ clôturé VM session lab (2026-06-20) — G8 `--panel-g8` + smokes shell/calendar/v4-p4 · captures tray Capsule · VM pivot exceptionnelle · clôture initiale 2026-06-06 · Registre `linux-kde-neon`  
 > Parité globale skin : [`inventaire-parite-neon.md`](../inventaire-parite-neon.md)  
 > Kickoff : [`linux-kde-neon-kickoff-closure.md`](linux-kde-neon-kickoff-closure.md)  
 > Calendrier : déjà validé visuellement (popover Plasma, hors doc dédiée)
@@ -21,7 +21,7 @@ Panel inférieur Plasma : launcher, pins, system tray, horloge, coup d'œil sur 
 | JS volume | `usr/lib/capsuleos/shells/linux/volume.js` |
 | Icônes tray | `usr/share/capsuleos/assets/images/toolkits/kde/panel/tray/` |
 | Show desktop | `…/panel/user-desktop-symbolic.svg` (pull VM) |
-| Launcher KDE | `…/panel/start-here-kde.svg` + filtre `--opensuse-mono-logo-filter` |
+| Launcher KDE | `…/panel/start-here-kde.svg` + filtre `--kde-neon-mono-logo-filter` |
 
 ## Parité validée
 
@@ -56,6 +56,17 @@ node root/tools/lab/capture-capsule-kde-neon.mjs         # capsule-desktop.png
 | Icônes expand non cliquables individuellement | P2 | Affichage VM des icônes masquées |
 | « Paramètres réseau… » | P2 | Retour accueil CapsuleOS (pas KCM réseau) |
 | Pins VM incluent Config système | P2 | CapsuleOS : 4 pins lab (Dolphin, Firefox, Konsole, Discover) |
+
+## Gates (2026-06-20 — VM session lab)
+
+```bash
+export KDE_NEON_SSH=capsule@<ip-lab>   # etc/capsuleos/lab-inventory.json (gitignoré)
+bash root/tools/lab/vm-kde-neon-capture-host.sh --panel-g8
+CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node root/tools/lab/capture-capsule-kde-neon.mjs --panel-g8
+node usr/lib/capsuleos/tools/lab/smoke-kde-neon-shell-polish.mjs
+node usr/lib/capsuleos/tools/lab/smoke-kde-neon-calendar.mjs
+node usr/lib/capsuleos/tools/lab/smoke-kde-neon-v4-p4.mjs
+```
 
 ## Gates (2026-06-06)
 

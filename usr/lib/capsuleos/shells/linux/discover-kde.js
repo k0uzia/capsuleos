@@ -109,6 +109,7 @@
     }
 
     let catalogPromise = null;
+    let catalogCache = null;
     let state = {
         view: 'home',
         maximized: false,
@@ -154,8 +155,13 @@
                     }
                     return response.json();
                 })
+                .then((data) => {
+                    catalogCache = data;
+                    return data;
+                })
                 .catch((error) => {
                     console.warn('Discover Neon: catalogue indisponible', error);
+                    catalogCache = null;
                     return null;
                 });
         }
@@ -605,6 +611,9 @@
             : '';
         return `
             <header class="kde-discover-app-detail__header">
+                <button type="button" class="kde-discover-app-detail__header-back" data-discover-app-back aria-label="Retour">
+                    <span class="kde-discover-app-detail__header-back-icon" aria-hidden="true"></span>
+                </button>
                 <div class="kde-discover-app-detail__header-actions">
                     ${actionBtn('share', 'Partager', '', 'data-discover-app-action="share"')}
                     ${actionBtn('remove', 'Supprimer', '', 'data-discover-app-action="remove"')}
@@ -643,7 +652,6 @@
         ].filter(Boolean).join('');
         panel.innerHTML = `
             ${renderAppDetailToolbarActions(meta, app, installed, primaryAction, primaryDataAttr)}
-            <button type="button" class="kde-discover-app-detail__back sr-only" data-discover-app-back aria-label="Retour">Retour</button>
             <article class="kde-discover-app-detail__body">
                 <div class="kde-discover-app-detail__top">
                     <div class="kde-discover-app-detail__identity">
@@ -1151,6 +1159,10 @@
     }
 
     function bindUpdatesActions(root) {
+        if (root.dataset.discoverActionsInit === 'true') {
+            return;
+        }
+        root.dataset.discoverActionsInit = 'true';
         root.addEventListener('click', (event) => {
             const removeInstalled = event.target.closest('.kde-discover-card--installed__remove');
             if (removeInstalled && root.contains(removeInstalled)) {
@@ -1201,11 +1213,16 @@
             const backBtn = event.target.closest('[data-discover-app-back]');
             if (backBtn && root.contains(backBtn)) {
                 event.preventDefault();
-                loadCatalog().then((catalog) => {
+                const finishBack = (catalog) => {
                     if (catalog) {
                         closeAppDetail(root, catalog);
                     }
-                });
+                };
+                if (catalogCache) {
+                    finishBack(catalogCache);
+                } else {
+                    loadCatalog().then(finishBack);
+                }
                 return;
             }
 
@@ -1246,9 +1263,10 @@
                             }
                             renderAppDetail(root, catalog, app);
                         }
-                        if (status) {
-                            status.hidden = false;
-                            status.textContent = app && app.storeInstallable
+                        const statusEl = root.querySelector('[data-discover-app-status]');
+                        if (statusEl) {
+                            statusEl.hidden = false;
+                            statusEl.textContent = app && app.storeInstallable
                                 ? `${app.name || 'Application'} installée (simulation magasin CapsuleOS).`
                                 : 'Installation simulée — application ajoutée au catalogue lab.';
                         }

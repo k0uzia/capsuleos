@@ -6,7 +6,7 @@
   "controlsRegistry": "root/tools/lab/kde-settings-controls-registry.json",
   "vm": {
     "registryId": "linux-kde-neon",
-    "collectedAt": "2026-06-14T18:55:00.045118+00:00"
+    "collectedAt": "2026-06-22T07:42:50.856704+00:00"
   },
   "panels": [
     {

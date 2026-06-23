@@ -42,7 +42,7 @@ body#popos .cosmic-workspaces-rail__workspace {
     border-radius: calc(var(--head) / 6);
     background: transparent;
     color: var(--popos-shell-text);
-    font-family: "Inter", "Cantarell", ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-ui);
     font-size: calc(var(--head) / 2.75);
     font-weight: 400;
     text-align: center;

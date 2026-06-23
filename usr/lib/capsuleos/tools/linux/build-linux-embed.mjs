@@ -50,7 +50,6 @@ const OUT_FILE = path.join(ROOT, 'var/lib/capsuleos/generated/capsule-app-embed.
 const MANIFEST_PATH = path.join(ROOT, 'home/public/.capsule-manifest.json');
 
 const FAMILY_APP_HTML_DIRS = {
-    mint: path.join(ROOT, 'home/Debian/Mint/apps'),
     opensuse: path.join(ROOT, 'home/SUSE/openSUSE/apps'),
     anduinos: path.join(ROOT, 'home/Debian/AnduinOS/apps'),
     debiankde: path.join(ROOT, 'home/Debian/Debian-KDE/apps'),
@@ -94,6 +93,8 @@ function listSkinIds(skinDir) {
 function buildCssBase(templateId) {
     const CSS_BASE_ALIASES = {
         systemsettings_kde_neon: 'systemsettings_kde',
+        themes_cosmic: 'themes_gnome',
+        update_manager_cosmic: 'update_manager_gnome',
     };
     const cssBaseId = CSS_BASE_ALIASES[templateId]
         ?? (['nemo-gnome', 'nemo-cosmic', 'nautilus', 'nautilus-cosmic'].includes(templateId)
@@ -101,6 +102,12 @@ function buildCssBase(templateId) {
             : templateId);
     const baseFile = path.join(STYLE_DIR, `${cssBaseId}.base.css`);
     let text = readUtf8(baseFile);
+    if (templateId === 'firefox') {
+        const protonFile = path.join(STYLE_DIR, 'firefox-proton.base.css');
+        if (fs.existsSync(protonFile)) {
+            text = `${text}\n${readUtf8(protonFile)}`;
+        }
+    }
     if (templateId === 'dolphin') {
         const nemoBase = path.join(STYLE_DIR, 'nemo.base.css');
         text = `${readUtf8(nemoBase)}\n${text}`;

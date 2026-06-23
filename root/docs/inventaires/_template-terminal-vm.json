@@ -4,7 +4,7 @@
   "doc": "root/docs/convention-shell-global.md",
   "collectedAt": "YYYY-MM-DD",
   "vm": {
-    "host": "capsule@192.168.122.234",
+    "host": "<lab-inventory:<linux-rocky>>",
     "shell": "/bin/bash",
     "terminalApp": "Ptyxis",
     "notes": ""

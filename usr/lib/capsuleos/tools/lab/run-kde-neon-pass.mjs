@@ -54,6 +54,8 @@ const staticSmokes = [
   'smoke-kde-neon-shell-polish.mjs',
   'smoke-kde-neon-kickoff.mjs',
   'smoke-kde-neon-dolphin.mjs',
+  'smoke-dolphin-vm-parity.mjs',
+  'smoke-kde-settings-vm-parity.mjs',
   'smoke-kde-neon-discover.mjs',
   'smoke-discover-kde-neon.mjs',
   'smoke-discover-vm-parity.mjs',

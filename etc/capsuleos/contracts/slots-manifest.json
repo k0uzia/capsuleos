@@ -375,7 +375,8 @@
       "scenariosContract": null,
       "postInstallSlot": null,
       "toolkitVariants": {
-        "gnome": { "template": "visionneur_images.html", "chromeProvider": "libadwaita-gnome", "skinCss": "visionneur_images.skin.css" }
+        "gnome": { "template": "visionneur_images.html", "chromeProvider": "libadwaita-gnome", "skinCss": "visionneur_images.skin.css" },
+        "cinnamon": { "template": "visionneur_images_pix.html", "chromeProvider": "cinnamon", "skinCss": "visionneur_images.skin.css" }
       }
     },
     "visionneur_pdf": {
@@ -386,7 +387,8 @@
       "scenariosContract": null,
       "postInstallSlot": null,
       "toolkitVariants": {
-        "gnome": { "template": "visionneur_pdf.html", "chromeProvider": "libadwaita-gnome", "skinCss": "visionneur_pdf.skin.css" }
+        "gnome": { "template": "visionneur_pdf.html", "chromeProvider": "libadwaita-gnome", "skinCss": "visionneur_pdf.skin.css" },
+        "cinnamon": { "template": "visionneur_pdf_xreader.html", "chromeProvider": "cinnamon", "skinCss": "visionneur_pdf.skin.css" }
       }
     },
     "snapshot": {

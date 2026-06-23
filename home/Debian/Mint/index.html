@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <script src="../../../usr/lib/capsuleos/core/capsule-a11y-bootstrap.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../../../usr/share/capsuleos/assets/images/vendors/mint/mint.webp" type="image/x-icon">
     <link rel="stylesheet" href="./mint-fonts.css" type="text/css">
@@ -430,7 +431,14 @@
     <script src="./content/mint-thunderbolt-state.js?v=20260612parityP10"></script>
     <script src="./content/profile-data.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/profile.js"></script>
-    <script src="../../../usr/lib/capsuleos/shells/linux/firefoxBrowser.js"></script>
+        <script src="../../../var/lib/capsuleos/generated/capsule-simulated-web-index.js"></script>
+    <script src="../../../var/lib/capsuleos/generated/capsule-firefox-contrib.js"></script>
+<script>window.CAPSULE_MNT_BASE=window.CAPSULE_MNT_BASE||'../../../mnt';window.CAPSULE_MNT_MODULES=window.CAPSULE_MNT_MODULES||['debutant/linux-bases'];</script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/simulatedWebResolver.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/common/capsule-mnt-modules.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/capsule-mnt-bridge.js"></script>
+<script src="../../../usr/lib/capsuleos/shells/linux/firefoxBrowser.js"></script>
+    <script src="../../../usr/lib/capsuleos/shells/linux/firefox-iframe-bridge.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/explorers/explorer-registry.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/explorer-toolkit-paths.js"></script>
     <script src="../../../usr/lib/capsuleos/shells/linux/fileExplorer/nemo-icon-map.js"></script>
@@ -532,6 +540,6 @@
     <script src="./content/mint-tray-favorites.js?v=20260610shell"></script>
     <script src="./content/mint-tray.js?v=20260608panelA"></script>
     <script src="./content/mint-tray-overflow.js?v=20260612panel"></script>
-    <script src="./content/mint-panel-idle-tray.js?v=20260618idle"></script>
+    <script src="./content/mint-panel-idle-tray.js?v=20260621idle"></script>
 </body>
 </html>

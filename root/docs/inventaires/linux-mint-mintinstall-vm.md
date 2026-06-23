@@ -2,9 +2,9 @@
 
 **Objectif** : ground truth pour le slot `mintinstall` (distinct de `update_manager` / mintupdate).
 
-**Dernière collecte campagne** : 2026-06-11T13:43:47.812Z · SSH `capsule@192.168.1.146` · paquet `mintinstall 8.4.0`
+**Dernière collecte campagne** : 2026-06-11T13:43:47.812Z · SSH `<lab-inventory:linux-mint-mintinstall>` · paquet `mintinstall 8.4.0`
 
-**Collecte** : SSH `capsule@192.168.1.146` · campagne 2026-06-08.
+**Collecte** : SSH `<lab-inventory:linux-mint-mintinstall>` · campagne 2026-06-08.
 
 ---
 
@@ -47,7 +47,7 @@
 ## 4. Commandes lab
 
 ```bash
-ssh capsule@192.168.1.146 'DISPLAY=:0 mintinstall &'
+ssh <lab-inventory:linux-mint-mintinstall> 'DISPLAY=:0 mintinstall &'
 node usr/lib/capsuleos/tools/lab/smoke-mint-mintinstall.mjs
 node usr/lib/capsuleos/tools/validate-all.mjs
 ```

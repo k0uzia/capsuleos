@@ -45,6 +45,46 @@ export const visualFidelityPath = (registryId) =>
 export const deepAuditPath = (registryId) =>
   path.join(ROOT, 'root/docs/inventaires', `${registryId}-deep-audit.json`);
 
+const MINT_MIME_OFFLINE = path.join(ROOT, 'root/docs/inventaires/linux-mint-mime-vm.json');
+
+/** Repli documentaire quand ¬SSH lab — ground truth inventaires VM versionnés (R-INV1). */
+export function enrichVisualFidelityFromOfflineInventories(registryId, inv) {
+  if (registryId !== 'linux-mint' || !fs.existsSync(MINT_MIME_OFFLINE)) {
+    return inv;
+  }
+  const snap = JSON.parse(fs.readFileSync(MINT_MIME_OFFLINE, 'utf8'));
+  const collectedFrom = 'root/docs/inventaires/linux-mint-mime-vm.json (inventaire VM documentaire)';
+
+  inv.typography = inv.typography || {};
+  inv.typography.vm = {
+    ...inv.typography.vm,
+    fontName: snap.typography?.fontName || inv.typography.vm?.fontName,
+    documentFontName: snap.typography?.documentFontName || inv.typography.vm?.documentFontName,
+    monospaceFontName: snap.typography?.monospaceFontName || inv.typography.vm?.monospaceFontName,
+    gtkTheme: snap.typography?.gtkTheme || inv.typography.vm?.gtkTheme,
+    source: snap.source || collectedFrom,
+  };
+  inv.typography.status = 'documented';
+
+  inv.mime = {
+    ...inv.mime,
+    iconTheme: snap.iconTheme || inv.mime?.iconTheme,
+    defaultHandlers: snap.defaultHandlers || [],
+    globsSample: KNOWN_GLOBS.map((g) => `${g.glob} → ${g.mime}`),
+    collectedFrom,
+    status: 'documented',
+  };
+
+  inv.accessibility = {
+    ...inv.accessibility,
+    vmGsettings: { ...inv.accessibility?.vmGsettings, ...snap.vmGsettings },
+    collectedFrom,
+    status: 'documented',
+  };
+
+  return recomputePredicates(inv);
+}
+
 export const skinPathFromRegistry = (registryId) => {
   const entry = loadRegistryEntry(registryId);
   const skin = entry.referencePaths?.skin;
@@ -180,6 +220,12 @@ const TYPOGRAPHY_VENDOR_PROFILES = {
     monoFamily: 'Cascadia Code',
     capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/anduin',
     cssFile: 'home/Debian/AnduinOS/anduin-fonts.css',
+  },
+  popos: {
+    uiFamily: 'Open Sans',
+    monoFamily: 'Ubuntu Mono',
+    capsuleDir: 'usr/share/capsuleos/assets/fonts/vendors/popos',
+    cssFile: 'home/Debian/PopOS/popos-overrides.css',
   },
   mint: {
     uiFamily: 'Ubuntu',
@@ -397,6 +443,7 @@ export const scanTypographyViolations = (registryId) => {
       'kde-neon': ['NotoSans-Bold.ttf', 'Ubuntu[wdth,wght].ttf'],
       anduinos: ['AdwaitaSans-Regular.ttf', 'Ubuntu[wdth,wght].ttf'],
       mint: ['Ubuntu[wdth,wght].ttf', 'UbuntuMono[wght].ttf'],
+      popos: ['Ubuntu[wdth,wght].ttf', 'UbuntuMono-Italic[wght].ttf'],
     };
     const fontChecks = fontChecksByVendor[vendor] || ['RedHatText[wght].ttf', 'RedHatMono[wght].ttf'];
     for (const name of fontChecks) {

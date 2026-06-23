@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "description": "Assets ground truth Paramètres GNOME — linux-anduinos (inventaire VM 192.168.1.221).",
+  "description": "Assets ground truth Paramètres GNOME — linux-anduinos (inventaire VM <lab-ip>).",
   "registry": "linux-anduinos",
   "vendor": "anduin",
   "pullScript": "root/tools/lab/pull-vm-assets.sh",

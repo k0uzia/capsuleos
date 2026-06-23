@@ -6,7 +6,7 @@
   "collectedAt": "2026-06-10T19:00:00.000Z",
   "probeMethod": "ssh-gsettings",
   "vm": {
-    "ssh": "capsule@192.168.122.199",
+    "ssh": "<lab-inventory:linux-alma>",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "locale": "fr_FR.UTF-8"
   },

@@ -13,6 +13,7 @@ import { evaluateStorePredicates, storeAppliesToRegistry } from './store-replica
 import { evaluateSettingsEffectsPredicates, settingsEffectsAppliesToRegistry, settingsEffectsVerifyCommand } from './settings-effects-lib.mjs';
 import { resolveCapsuleHttpBase, loadRecipeProfile } from './lab-recipe-resolver.mjs';
 import { evaluateVisualScenesGate, listP0Scenes, visualFidelityReportPath } from './parity-index-lib.mjs';
+import { toolkitId as resolveToolkitId } from './playbook-general-lib.mjs';
 
 const formalStatePath = (registryId) =>
   path.join(ROOT, 'root/docs/inventaires', `${registryId}-formal-state.json`);
@@ -46,7 +47,7 @@ export const loadFormalState = (registryId) => {
   const manifest = evaluateManifestGates(registryId);
   const store = evaluateStorePredicates(registryId);
   const settingsEffects = evaluateSettingsEffectsPredicates(registryId);
-  const toolkit = loadRecipeProfile(registryId).toolkit || 'gnome';
+  const toolkit = resolveToolkitId(registryId);
   const kdeGroundTruth = readJsonIfExists(
     path.join(ROOT, 'root/docs/inventaires', `${registryId}-kde-ground-truth-gaps.json`),
   );
@@ -133,7 +134,7 @@ export const recordFormalGate = (registryId, gate, ok, meta = {}) => {
 export const evaluateFormalRules = (registryId) => {
   const state = loadFormalState(registryId);
   const { gates } = state;
-  const toolkit = loadRecipeProfile(registryId).toolkit || 'gnome';
+  const toolkit = resolveToolkitId(registryId);
 
   const rules = [
     {
@@ -169,24 +170,40 @@ export const evaluateFormalRules = (registryId) => {
       when: () => gates.H6 && !gates.Shell1,
       message: toolkit === 'kde'
         ? 'H6 ∧ ¬Shell₁ — polish panel KDE / kickoff / Dolphin / Discover'
-        : 'H6 ∧ ¬Shell₁ — polish top bar / dash / Firefox / Nautilus',
+        : toolkit === 'cosmic'
+          ? 'H6 ∧ ¬Shell₁ — polish top bar / dock / launcher / applications COSMIC'
+          : 'H6 ∧ ¬Shell₁ — polish top bar / dash / Firefox / Nautilus',
       command: toolkit === 'kde'
         ? `CAPSULE_HTTP_BASE=${resolveCapsuleHttpBase(registryId)} node usr/lib/capsuleos/tools/lab/smoke-kde-neon-shell-polish.mjs --id ${registryId} && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`
-        : 'CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-polish.mjs --playwright && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs',
+        : toolkit === 'cosmic'
+          ? `CAPSULE_HTTP_BASE=${resolveCapsuleHttpBase(registryId)} node usr/lib/capsuleos/tools/lab/smoke-cosmic-shell-polish.mjs --id ${registryId} --playwright && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`
+          : 'CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-polish.mjs --playwright && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs',
       autoExecute: true,
       gateOnSuccess: null,
     },
     {
       rule: 'R-SHELL2',
       when: () => gates.H6 && gates.Shell1 && !gates.Shell2 && toolkit !== 'kde',
-      message: 'H6 ∧ Shell₁ — polish Quick Settings + calendrier (P2 shell)',
-      command: 'CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-polish-phase2.mjs && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs',
+      message: toolkit === 'cosmic'
+        ? 'H6 ∧ Shell₁ — polish calendrier + menu alimentation COSMIC'
+        : 'H6 ∧ Shell₁ — polish Quick Settings + calendrier (P2 shell)',
+      command: toolkit === 'cosmic'
+        ? `CAPSULE_HTTP_BASE=${resolveCapsuleHttpBase(registryId)} node usr/lib/capsuleos/tools/lab/smoke-cosmic-shell-polish-phase2.mjs --id ${registryId} --playwright && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs`
+        : 'CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-polish-phase2.mjs && node usr/lib/capsuleos/tools/linux/sync-linux-skin-closure.mjs',
       autoExecute: true,
       gateOnSuccess: null,
     },
     {
       rule: 'R-LAB-SHELL',
-      when: () => gates.H6 && gates.Shell1 && gates.Shell2 && !gates.LabShell && toolkit !== 'kde',
+      when: () => gates.H6 && gates.Shell1 && gates.Shell2 && !gates.LabShell && toolkit === 'cosmic',
+      message: 'Smokes shell COSMIC de référence lab',
+      command: `node usr/lib/capsuleos/tools/lab/smoke-cosmic-lab-shell.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: 'LabShell',
+    },
+    {
+      rule: 'R-LAB-SHELL',
+      when: () => gates.H6 && gates.Shell1 && gates.Shell2 && !gates.LabShell && toolkit !== 'kde' && toolkit !== 'cosmic',
       message: 'Smokes shell GNOME de référence',
       command: 'node usr/lib/capsuleos/tools/lab/smoke-rocky-gnome-ref.mjs && node usr/lib/capsuleos/tools/lab/smoke-rocky-shell-polish.mjs',
       autoExecute: true,
@@ -416,6 +433,32 @@ export const evaluateFormalRules = (registryId) => {
       gateOnSuccess: null,
     },
     {
+      rule: 'R-H6-PRE',
+      when: () => {
+        if (gates.H6 || toolkit !== 'cosmic') return false;
+        if (!gates.PbΣ || !gates.Vp) return false;
+        if (fs.existsSync(h6ClosurePath(registryId))) return false;
+        return !fs.existsSync(h6ReadyPath(registryId));
+      },
+      message: 'PbΣ ∧ Vp — gate pré-H6 COSMIC (Paramètres + parité shell)',
+      command: `node usr/lib/capsuleos/tools/lab/smoke-h6-cosmic-settings-ready.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-H6',
+      when: () => {
+        if (gates.H6 || toolkit !== 'cosmic') return false;
+        if (!fs.existsSync(h6ReadyPath(registryId))) return false;
+        const ready = readJson(h6ReadyPath(registryId));
+        return !!ready?.h6Ready;
+      },
+      message: 'Gate pré-H6 passée — close-h6-cosmic-settings (embed + validate-all)',
+      command: `node usr/lib/capsuleos/tools/lab/close-h6-cosmic-settings.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
       rule: 'R-H6',
       when: () => {
         if (gates.H6 || toolkit !== 'kde') return false;
@@ -425,6 +468,32 @@ export const evaluateFormalRules = (registryId) => {
       },
       message: 'Gate pré-H6 passée — close-h6-kde-settings (embed + validate-all)',
       command: `node usr/lib/capsuleos/tools/lab/close-h6-kde-settings.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-H6-PRE',
+      when: () => {
+        if (gates.H6 || toolkit !== 'cinnamon') return false;
+        if (!gates.PbΣ || !gates.SeΣ) return false;
+        if (fs.existsSync(h6ClosurePath(registryId))) return false;
+        return !fs.existsSync(h6ReadyPath(registryId));
+      },
+      message: 'PbΣ ∧ SeΣ — gate pré-H6 Cinnamon (Paramètres CS + smoke)',
+      command: `node usr/lib/capsuleos/tools/lab/smoke-h6-cinnamon-settings-ready.mjs --id ${registryId}`,
+      autoExecute: true,
+      gateOnSuccess: null,
+    },
+    {
+      rule: 'R-H6',
+      when: () => {
+        if (gates.H6 || toolkit !== 'cinnamon') return false;
+        if (!fs.existsSync(h6ReadyPath(registryId))) return false;
+        const ready = readJson(h6ReadyPath(registryId));
+        return !!ready?.h6Ready;
+      },
+      message: 'Gate pré-H6 passée — close-h6-cinnamon-settings (embed + validate-all)',
+      command: `node usr/lib/capsuleos/tools/lab/close-h6-cinnamon-settings.mjs --id ${registryId}`,
       autoExecute: true,
       gateOnSuccess: null,
     },

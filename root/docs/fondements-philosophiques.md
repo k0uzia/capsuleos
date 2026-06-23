@@ -244,7 +244,7 @@ L’universalisation du manifeste n’abolit pas le vendor : elle **formalise** 
 | **P7** | Ressource sobre | Pas de module sans dette prouvée |
 | **P8** | Deux mondes assets | Système (`usr/share`) ≠ utilisateur (`home/public`) |
 | **P9** | Fidélité expérientielle | **Vp ∧ VΣ** (apps complètes) pour P0 |
-| **P10** | A11y opt-in | Mode accessibilité activable, pas défaut clone |
+| **P10** | A11y opt-in | Mode accessibilité activable, pas défaut clone ; gate mesurable [`validate-a11y.mjs`](../../usr/lib/capsuleos/tools/validate-a11y.mjs) (WCAG 2.2 AA, axe-core) — voir [audit-conformite-normes.md](audit-conformite-normes.md) |
 | **P11** | Vérité locale, pas de fallback cross-vendor | Matrices, manifestes, playbooks, inventaires liés à un `registryId` ; absence = gate rouge explicite — jamais emprunt silencieux à un autre vendor |
 | **P12** | Clean code & corpus | Toute écriture (code, doc, données) respecte [convention-clean-code.md](convention-clean-code.md) — inclut [README.md](README.md) ; pas d’écriture hors zone ni hors plan |
 

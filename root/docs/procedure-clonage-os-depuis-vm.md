@@ -143,7 +143,7 @@ ssh -i ~/.ssh/capsuleos-lab capsule@<IP> 'DISPLAY=:0 bash -s' < root/tools/lab/v
 
 ### 4.4 Windows 11 (SSH direct — même protocole que Mint)
 
-**Pas de relais SSH** via une autre VM lab (ex. linux-mint). Le hôte CapsuleOS se connecte **directement** à la VM Windows, comme pour `capsule@192.168.1.146`.
+**Pas de relais SSH** via une autre VM lab (ex. linux-mint). Le hôte CapsuleOS se connecte **directement** à la VM Windows, comme pour `<lab-inventory:linux-lab>`.
 
 | Élément | Valeur type |
 |---------|-------------|

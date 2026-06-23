@@ -12,6 +12,7 @@ import {
   collectA11yViaSsh,
   collectMimeViaSsh,
   collectTypographyFontsViaSsh,
+  enrichVisualFidelityFromOfflineInventories,
   recomputePredicates,
   visualFidelityPath,
 } from './visual-fidelity-lib.mjs';
@@ -54,24 +55,31 @@ const main = () => {
   } : built;
 
   if (opts.ssh) {
-    merged.mime = { ...merged.mime, ...collectMimeViaSsh(opts.id) };
-    const a11y = collectA11yViaSsh(opts.id);
-    merged.accessibility = {
-      ...merged.accessibility,
-      vmGsettings: a11y.vmGsettings,
-      collectedFrom: a11y.collectedFrom,
-      status: 'documented',
-    };
-    const fontFromVm = a11y.vmGsettings?.['org.gnome.desktop.interface font-name'];
-    if (fontFromVm) {
-      merged.typography.vm = { ...merged.typography.vm, fontName: fontFromVm };
+    try {
+      merged.mime = { ...merged.mime, ...collectMimeViaSsh(opts.id) };
+      const a11y = collectA11yViaSsh(opts.id);
+      merged.accessibility = {
+        ...merged.accessibility,
+        vmGsettings: a11y.vmGsettings,
+        collectedFrom: a11y.collectedFrom,
+        status: 'documented',
+      };
+      const fontFromVm = a11y.vmGsettings?.['org.gnome.desktop.interface font-name'];
+      if (fontFromVm) {
+        merged.typography.vm = { ...merged.typography.vm, fontName: fontFromVm };
+        merged.typography.status = 'documented';
+      }
+      merged.typography = {
+        ...merged.typography,
+        fontEmbedding: collectTypographyFontsViaSsh(opts.id),
+      };
       merged.typography.status = 'documented';
+    } catch (err) {
+      console.warn(`○ SSH fidélité ${opts.id} — ${err.message}`);
+      merged = enrichVisualFidelityFromOfflineInventories(opts.id, merged);
     }
-    merged.typography = {
-      ...merged.typography,
-      fontEmbedding: collectTypographyFontsViaSsh(opts.id),
-    };
-    merged.typography.status = 'documented';
+  } else {
+    merged = enrichVisualFidelityFromOfflineInventories(opts.id, merged);
   }
 
   merged = recomputePredicates(merged);

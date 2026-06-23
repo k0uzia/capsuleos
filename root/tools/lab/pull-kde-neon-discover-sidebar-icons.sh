@@ -3,12 +3,14 @@
 #
 # Usage :
 #   bash root/tools/lab/vm-kde-neon-discover-sidebar-inventory.sh
-#   KDE_NEON_SSH=goupil@192.168.123.52 bash root/tools/lab/pull-kde-neon-discover-sidebar-icons.sh
+#   KDE_NEON_SSH=<lab-inventory:linux-kde-neon> bash ...
 #   bash root/tools/lab/pull-kde-neon-discover-sidebar-icons.sh --verify-only
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
-SSH_TARGET="${KDE_NEON_SSH:-goupil@192.168.123.52}"
+# shellcheck source=lab-inventory-ssh.sh
+source "$(dirname "$0")/lab-inventory-ssh.sh"
+SSH_TARGET="${KDE_NEON_SSH:-$(resolve_lab_ssh linux-kde-neon KDE_NEON_SSH)}"
 IDENTITY="${KDE_NEON_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 DEST_ROOT="$ROOT/usr/share/capsuleos/assets/images/vendors/neon/discover/sidebar"
 INVENTORY="$ROOT/root/docs/inventaires/linux-kde-neon-discover-sidebar-icons.json"

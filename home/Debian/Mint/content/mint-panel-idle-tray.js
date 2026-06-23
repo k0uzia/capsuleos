@@ -29,9 +29,15 @@
             if (hidden) {
                 nodes[i].classList.add('mint-tray--idle-hidden');
                 nodes[i].setAttribute('aria-hidden', 'true');
+                if (nodes[i].id === 'mint-tray-favorites') {
+                    nodes[i].setAttribute('hidden', '');
+                }
             } else {
                 nodes[i].classList.remove('mint-tray--idle-hidden');
                 nodes[i].removeAttribute('aria-hidden');
+                if (nodes[i].id === 'mint-tray-favorites') {
+                    nodes[i].removeAttribute('hidden');
+                }
             }
         }
     }

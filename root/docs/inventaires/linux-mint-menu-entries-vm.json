@@ -1,6 +1,6 @@
 {
   "registryId": "linux-mint",
-  "source": "VM capsule@192.168.1.146 — Mint 22.3 zena, LANG fr_FR.UTF-8",
+  "source": "VM <lab-inventory:linux-mint> — Mint 22.3 zena, LANG fr_FR.UTF-8",
   "method": "/usr/share/applications/*.desktop — Name[fr_FR]/[fr]/[fr_CA] sinon gettext X-Ubuntu-Gettext-Domain (logique Cinnamon/GLib Ubuntu)",
   "collectedAt": "2026-06-11",
   "entries": [

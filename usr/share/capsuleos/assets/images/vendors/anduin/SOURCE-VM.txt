@@ -1,5 +1,5 @@
 # Ground truth VM — linux-anduinos
-# Host: capsule@192.168.1.221
+# Host: <lab-inventory:linux-anduinos>
 # Date: 2026-06-16
 # Matrice: root/tools/lab/gnome-settings-assets-matrix-anduin.json
 
@@ -14,3 +14,4 @@
 
 # import-manifest-staging 2026-06-17T10:40:54.089Z
 files: 95
+Connexion SSH : etc/capsuleos/lab-inventory.json (local, gitignoré).

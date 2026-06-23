@@ -2,7 +2,7 @@
   "registryId": "linux-alma",
   "version": 1,
   "campaign": "c12-apps-parity-pass",
-  "description": "Indice de parité AlmaLinux GNOME — VM capsule@192.168.122.199, skin dérivé linux-rocky",
+  "description": "Indice de parité AlmaLinux GNOME — VM <lab-inventory:linux-alma> skin dérivé linux-rocky",
   "upstreamId": "linux-rocky",
   "weights": {
     "shell": 0.25,
@@ -37,7 +37,7 @@
       },
       "smoke": "smoke-rocky-shell-polish.mjs --playwright",
       "server": "http://127.0.0.1:5501/home/RedHat/Alma/index.html",
-      "vmSource": "capsule@192.168.122.199 gsettings org.gnome.desktop.interface",
+      "vmSource": "<lab-inventory:linux-alma> gsettings org.gnome.desktop.interface",
       "lastPass": "2026-06-10T11:15:53.126Z",
       "checksPassed": 8,
       "checksTotal": 8,

@@ -11,6 +11,7 @@ Registre vivant des écarts connus CapsuleOS. Mis à jour à chaque cycle P0/P1.
 | `audit-gnome-overview-scenarios.mjs` crash | Contrat présent ; audit cinnamon/KDE documenté (skip overview GNOME) |
 | Gate `validate-app-catalog-integrity.mjs` manquante | Ajoutée + intégrée `validate-ui-contracts-all.mjs` |
 | Ubuntu store UI — smoke S5–S12 `deferred` | **Option A** : `CAPSULE_TEMPLATE_OVERRIDES.update_manager` → `update_manager_gnome.html` (comme Pop!_OS) ; branding snap-store conservé dans `presentation-bindings` (Centre d'applications, sources snap/deb/flatpak) ; smoke `smoke-gnome-software-scenarios.mjs --id linux-ubuntu` |
+| Mint — overrides HTML skin (`home/Debian/Mint/apps/`) | Gabarits Pix/Xreader promus Z1 (`visionneur_images_pix.html`, `visionneur_pdf_xreader.html`) ; gate `validate-skin-app-html-overrides.mjs` ; embed sans scan Mint/apps |
 
 ### Comptage overrides (post-cycle)
 
@@ -45,7 +46,7 @@ Manifeste scénarios GNOME : **18 → 21** contrats (`gnome-user-scenarios-index
 | Rocky Loupe / Papers | Polish visuel Vc ground truth (captures VM dédiées Papers) |
 | Vc VM | Captures ground truth manquantes pour distros P1+ |
 | KDE Discover store (openSUSE) | `storeCatalogStatus: deferred` — 0 apps magasin (priorité neon levée) |
-| KDE neon VM lab | `192.168.123.52` hors réseau au 2026-06-11 — réinventaire plasma-discover/flatpak à reprendre |
+| KDE neon VM lab | `<lab-ip>` hors réseau au 2026-06-11 — réinventaire plasma-discover/flatpak à reprendre |
 | Pop!_OS COSMIC | Toolkit `cosmic` sans `slotSpecs` dédiés — résolution via `storeToolkit: gnome` |
 | Inventaires VM | `*-vm-apps-installed.json` absent hors rocky/ubuntu/mint |
 

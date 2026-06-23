@@ -209,7 +209,7 @@ if (opts.write) {
       gt += gtSection;
     }
   } else {
-    gt = `# Ground truth Cinnamon — Linux Mint\n\nRéférence VM lab \`capsule@192.168.1.146\` · Cinnamon 6.6.7 · locale fr_FR.\n${gtSection}`;
+    gt = `# Ground truth Cinnamon — Linux Mint\n\nRéférence VM lab \`<lab-inventory:linux-mint>\` · Cinnamon 6.6.7 · locale fr_FR.\n${gtSection}`;
   }
   fs.writeFileSync(GROUND_TRUTH_PATH, gt);
 }

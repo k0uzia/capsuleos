@@ -22,6 +22,15 @@ const steps = [
   'validate-terminal-commands.mjs',
   'validate-pedagogical-modules.mjs',
   'validate-gnome-user-scenarios-all.mjs',
+  'validate-reuse-full.mjs',
+  'validate-sbom.mjs',
+  'validate-git-security.mjs',
+  'validate-schema-org.mjs',
+  'validate-owasp-static.mjs',
+  "validate-a11y.mjs",
+  'validate-simulated-web.mjs',
+  'validate-contrib-packages.mjs',
+  'validate-skin-app-html-overrides.mjs',
 ];
 
 let failed = false;

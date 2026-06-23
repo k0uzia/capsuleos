@@ -22,6 +22,20 @@ Guide pour **contributeurs humains** et **agents IA** (Cursor, automations). Obj
 
 Documentation agents détaillée : dossier [`root/`](root/) (skills Cursor, parcours H0–H6).
 
+### Apps contrib et internet simulé
+
+Pour ajouter une **app transversale** (ex. Firefox) ou un **site web local** :
+
+1. Lire [`root/docs/convention-contrib-apps.md`](root/docs/convention-contrib-apps.md).
+2. **App** : `usr/share/capsuleos/contrib/{catégorie}/{vendor}/{app}/` — `manifest.json` + données (favoris, moteur recherche) ; le slot doit exister dans `slots-manifest.json`.
+3. **Site** : copier `usr/share/capsuleos/web/_template/` → `web/{siteId}/`, déclarer les hosts dans `site.json`.
+4. Régénérer l’index : `node usr/lib/capsuleos/tools/build-simulated-web-index.mjs`.
+5. Gates : `validate-simulated-web.mjs` + `validate-contrib-packages.mjs` (inclus dans `validate-quality-all.mjs`).
+
+Modèles PR : [`root/docs/templates/contrib-pr-nouveau-site-web.md`](root/docs/templates/contrib-pr-nouveau-site-web.md) · [`root/docs/templates/contrib-pr-favori-firefox.md`](root/docs/templates/contrib-pr-favori-firefox.md)
+
+Le kernel navigateur (`simulatedWebResolver.js` + `firefoxBrowser.js`) résout les URLs depuis l’index Z0 — **pas de hardcode** de hosts dans le JS noyau.
+
 ---
 
 ## Formation agents IA
@@ -612,6 +626,7 @@ node usr/lib/capsuleos/tools/build-embeds-all.mjs --linux-only
 | Sujet | Emplacement |
 |-------|-------------|
 | Guide contributeur, checklist contrat, toolkits Linux GUI | `contrib.md` à la racine |
+| Apps contrib + internet simulé (Firefox, `web/`, `/mnt`) | `root/docs/convention-contrib-apps.md` |
 | Agents, skills, parcours | `root/` |
 | Doc développeur sous `OS/` | **Interdit** (`README.md`, etc.) — utiliser `root/docs/` |
 | Politique assets | `root/docs/politique-assets.md` |
@@ -664,6 +679,12 @@ Index complet : [`root/README.md`](root/README.md)
 
 ### Agents / release
 
+- [ ] `node usr/lib/capsuleos/tools/validate-reuse-full.mjs` → REUSE.toml, LICENSES/, SPDX + `reuse lint`.
+- [ ] Après changement `os-registry.json` ou `/mnt` : `node usr/lib/capsuleos/tools/build-schema-org.mjs` puis `validate-schema-org.mjs`.
+- [ ] `node usr/lib/capsuleos/tools/validate-owasp-static.mjs` → directives `.htaccess` (OWASP statique).
+- [ ] `node usr/lib/capsuleos/tools/validate-a11y.mjs` → WCAG 2.2 AA (P10 opt-in, axe-core) ; smoke : `lab/smoke-a11y-portal.mjs`.
+- [ ] `node usr/lib/capsuleos/tools/validate-git-security.mjs` → pas de `node_modules/`, secrets ou `.env` versionnés.
+- [ ] Après `npm install` / changement de `package-lock.json` : `npm run sbom` puis `validate-sbom.mjs`.
 - [ ] `node usr/lib/capsuleos/tools/validate-all.mjs` → exit 0 avant merge significatif.
 - [ ] Nouvel OS : [root/docs/ajouter-os-scalable.md](root/docs/ajouter-os-scalable.md) suivi ; entrée `os-registry.json`.
 

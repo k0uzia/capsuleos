@@ -1,6 +1,6 @@
 # Clôture Kickoff — KDE neon User Edition
 
-> **Statut** : 🔄 réouvert (2026-06-11) — réaudit week-end 6–7 juin · clôture initiale 2026-06-06 · Registre `linux-kde-neon`  
+> **Statut** : ✅ clôturé VM session lab (2026-06-20) — paires vm/capsule-kickoff · smokes kickoff/b1 · VM pivot exceptionnelle · clôture initiale 2026-06-06 · Registre `linux-kde-neon`  
 > Parité globale skin : [`inventaire-parite-neon.md`](../inventaire-parite-neon.md)  
 > Panel + tray : [`linux-kde-neon-panel-tray-closure.md`](linux-kde-neon-panel-tray-closure.md)
 
@@ -50,7 +50,16 @@ node root/tools/lab/capture-capsule-kde-neon.mjs   # capsule-kickoff.png
 | Boutons Filtres / Épingler | P2 | Décoratifs |
 | Catégorie Aide | P2 | Désactivée (decorative) |
 | Captures par catégorie | P2 | `vm-kickoff.png` suffit pour clôture |
-| Tokens `--opensuse-*` hérités | P2 | Renommage `--kde-neon-*` |
+| Tokens `--opensuse-*` hérités | ✅ | Renommé `--kde-neon-*` |
+
+## Gates (2026-06-20 — VM session lab)
+
+```bash
+bash root/tools/lab/vm-kde-neon-capture-host.sh --panel-g8   # vm-kickoff.png
+CAPSULE_HTTP_BASE=http://127.0.0.1:5500 node root/tools/lab/capture-capsule-kde-neon.mjs --panel-g8
+node usr/lib/capsuleos/tools/lab/smoke-kde-neon-kickoff.mjs
+node usr/lib/capsuleos/tools/lab/smoke-kde-neon-b1-kickoff.mjs
+```
 
 ## Gates (2026-06-06)
 

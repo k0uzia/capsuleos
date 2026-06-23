@@ -30,7 +30,7 @@ const parseArgs = () => {
 const registryIdsWithFidelity = () => {
   const invDir = path.join(ROOT, 'root/docs/inventaires');
   return fs.readdirSync(invDir)
-    .filter((name) => name.endsWith('-visual-fidelity.json'))
+    .filter((name) => name.endsWith('-visual-fidelity.json') && !name.startsWith('_template'))
     .map((name) => name.replace('-visual-fidelity.json', ''));
 };
 

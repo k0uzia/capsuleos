@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-06-14T18:54:59.063988+00:00",
+  "generatedAt": "2026-06-22T07:42:39.204915+00:00",
   "source": "vm-kde-settings-inventory.sh",
   "registryId": "linux-kde-neon",
   "moduleCount": 92,
@@ -1289,7 +1289,7 @@
     "vmModulesListed": 92,
     "hubCategories": 8
   },
-  "collectedAt": "2026-06-14T18:54:59.170Z",
+  "collectedAt": "2026-06-22T07:42:39.364Z",
   "predicates": {
     "KdF": true,
     "coveragePct": 100,

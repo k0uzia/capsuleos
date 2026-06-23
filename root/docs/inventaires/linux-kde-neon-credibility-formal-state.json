@@ -3,9 +3,9 @@
   "gates": {
     "CredS": {
       "ok": true,
-      "at": "2026-06-16T10:03:03.984Z",
+      "at": "2026-06-20T16:49:27.289Z",
       "liveVerified": true,
-      "scenarios": 33
+      "scenarios": 56
     },
     "CredΣ": {
       "ok": true,
@@ -35,5 +35,5 @@
   },
   "nextPredicate": null,
   "evaluatedAt": "2026-06-09T12:51:14.601Z",
-  "updatedAt": "2026-06-16T10:03:03.985Z"
+  "updatedAt": "2026-06-20T16:49:27.290Z"
 }

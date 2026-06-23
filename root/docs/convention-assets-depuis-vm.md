@@ -41,7 +41,7 @@ Noter : nom de l’app (**Nautilus**), thème icônes, fond par défaut.
 
 ```bash
 bash root/tools/lab/pull-vm-assets.sh --id linux-rocky
-# ou : bash root/tools/lab/pull-vm-assets.sh --ssh capsule@192.168.122.234 --vendor rocky
+# ou : bash root/tools/lab/pull-vm-assets.sh --ssh <lab-inventory:linux-lab> --vendor rocky
 ```
 
 Prérequis : `etc/capsuleos/lab-inventory.json`, clé SSH lab, session GNOME active sur la VM.

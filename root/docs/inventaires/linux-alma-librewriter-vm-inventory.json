@@ -6,7 +6,7 @@
   "template": "librewriter.html",
   "collectedAt": "2026-06-10",
   "vm": {
-    "host": "capsule@192.168.122.199",
+    "host": "<lab-inventory:linux-alma>",
     "sshIdentity": "~/.ssh/capsuleos-lab",
     "locale": "fr_FR.UTF-8",
     "sessionType": "wayland",

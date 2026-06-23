@@ -20,7 +20,7 @@ body#popos .calendar-popover {
     box-shadow: var(--popos-panel-shadow);
     backdrop-filter: blur(18px);
     color: var(--popos-calendar-text);
-    font-family: "Inter", "Cantarell", ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-ui);
     font-size: calc(var(--head) / 2.55);
 }
 

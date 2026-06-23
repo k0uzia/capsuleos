@@ -5,7 +5,7 @@
   "contract": "etc/capsuleos/contracts/kde-fidelity-scenarios.json",
   "previousCampaign": "v4-deep-parity",
   "vm": {
-    "host": "goupil@192.168.123.52"
+    "host": "<lab-inventory:linux-kde-neon>"
   },
   "appQueue": [
     "panel",

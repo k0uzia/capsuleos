@@ -226,6 +226,62 @@
         }
       }
     },
+    "cosmic": {
+      "collectPattern": "com.system76.*.desktop",
+      "note": "Pop!_OS COSMIC — overrides ; autres slots héritent gnome (apps-catalog-lib slotSpec).",
+      "slotSpecs": {
+        "nemo": {
+          "chromeProvider": "cosmic",
+          "template": "nemo-cosmic",
+          "skinCss": "nautilus.skin.css",
+          "functionalDepth": "full"
+        },
+        "terminal": {
+          "chromeProvider": "cosmic",
+          "template": "terminal.html",
+          "skinCss": "terminal.skin.css",
+          "functionalDepth": "full"
+        },
+        "themes": {
+          "chromeProvider": "cosmic",
+          "template": "themes_cosmic.html",
+          "baseCssStem": "themes_gnome",
+          "skinCss": "themes.skin.css",
+          "functionalDepth": "full"
+        },
+        "update_manager": {
+          "chromeProvider": "cosmic",
+          "template": "update_manager_cosmic.html",
+          "baseCssStem": "update_manager_gnome",
+          "skinCss": "update_manager.skin.css",
+          "functionalDepth": "full"
+        },
+        "text_editor": {
+          "chromeProvider": "cosmic",
+          "template": "text_editor.html",
+          "skinCss": "text_editor.skin.css",
+          "functionalDepth": "full"
+        },
+        "profile": {
+          "chromeProvider": "cosmic",
+          "template": "profile.html",
+          "skinCss": "profile.skin.css",
+          "functionalDepth": "full"
+        },
+        "screenshot": {
+          "chromeProvider": "cosmic",
+          "template": "screenshot.html",
+          "skinCss": "screenshot.skin.css",
+          "functionalDepth": "partial"
+        },
+        "lecteur_multimedia": {
+          "chromeProvider": "cosmic",
+          "template": "rhythmbox.html",
+          "skinCss": "rhythmbox.skin.css",
+          "functionalDepth": "partial"
+        }
+      }
+    },
     "cinnamon": {
       "collectPattern": "*.desktop",
       "note": "Mint — slotSpecs = variants Cinnamon (pas de gabarits GNOME).",
@@ -364,13 +420,13 @@
         },
         "visionneur_images": {
           "chromeProvider": "cinnamon",
-          "template": "visionneur_images.html",
+          "template": "visionneur_images_pix.html",
           "skinCss": "visionneur_images.skin.css",
           "functionalDepth": "partial"
         },
         "visionneur_pdf": {
           "chromeProvider": "cinnamon",
-          "template": "visionneur_pdf.html",
+          "template": "visionneur_pdf_xreader.html",
           "skinCss": "visionneur_pdf.skin.css",
           "functionalDepth": "partial"
         },
@@ -3050,6 +3106,8 @@
           "slot": "update_manager",
           "statut": "ok",
           "requiresSlot": true,
+          "vmManifestIds": ["com.system76.CosmicStore"],
+          "note": "Pop!_OS 24 COSMIC — Cosmic Store remplace pop-shop.desktop",
           "placement": {
             "dash": true,
             "overview": true,

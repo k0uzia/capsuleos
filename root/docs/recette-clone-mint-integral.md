@@ -1,6 +1,6 @@
 # Recette clone Mint — passe intégrale (moteur de clonage)
 
-> **Date** : 2026-06-08 · **registryId** : `linux-mint` · **VM** : `capsule@192.168.1.146`  
+> **Date** : 2026-06-08 · **registryId** : `linux-mint` · **VM** : `<lab-inventory:linux-lab>`  
 > **Objectif** : valider de bout en bout le moteur de clonage Cinnamon et documenter le cloisonnement toolkit.  
 > **Coordination** : passe Rocky parallèle (`91a017bf`) — périmètre Mint uniquement.  
 > **Dernière exécution recette** : 2026-06-08T14:15Z — pallier **8** · rapport [`linux-mint-clone-conformity-report.md`](inventaires/linux-mint-clone-conformity-report.md)

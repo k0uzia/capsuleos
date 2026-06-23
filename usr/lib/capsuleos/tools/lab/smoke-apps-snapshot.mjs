@@ -53,6 +53,16 @@ const P0_TEMPLATE_MARKERS_BY_TOOLKIT = {
     text_editor: 'xed-app',
     lecteur_multimedia: 'celluloid-app',
   },
+  cosmic: {
+    calculator: 'gnome-calc',
+    text_editor: 'xed-app',
+    nemo: 'nautilus-app',
+    firefox: 'capsule-browser',
+    update_manager: 'gnome-software__sidebar',
+    themes: 'themesApp',
+    terminal: 'capsule-terminal',
+    lecteur_multimedia: 'lecteurMultimedia',
+  },
 };
 
 const P0_RUNTIME_SELECTORS_BY_TOOLKIT = {
@@ -62,7 +72,7 @@ const P0_RUNTIME_SELECTORS_BY_TOOLKIT = {
     nemo: '.nautilus-app__headerbar, .nemo-app main',
     firefox: '.capsule-browser, .firefox-chrome',
     update_manager: '.gnome-software, .gnome-software__sidebar, .gnome-software__grid',
-    themes: '#themesApp.gnome-settings, .gnome-settings',
+    themes: '#themesApp, .themes-app, .gnome-settings',
     terminal: '.capsule-terminal-shell, #terminalContainer',
   },
   cinnamon: {
@@ -87,6 +97,16 @@ const P0_RUNTIME_SELECTORS_BY_TOOLKIT = {
     themes: '[data-kde-settings-root], #kdeSystemSettingsShell, .kde-systemsettings',
     terminal: '.capsule-terminal-shell, #terminalContainer',
     text_editor: '.xed-app, #xedApp',
+    lecteur_multimedia: '.celluloid-app, #lecteurMultimedia',
+  },
+  cosmic: {
+    calculator: '.gnome-calc__keypad, .gnome-calc',
+    text_editor: '.xed-app, #xedApp',
+    nemo: '.nautilus-app__headerbar, .nemo-app main',
+    firefox: '.capsule-browser, .firefox-chrome',
+    update_manager: '.gnome-software, .gnome-software__sidebar, .gnome-software__grid',
+    themes: '#themesApp, .themes-app, .gnome-settings',
+    terminal: '.capsule-terminal-shell, #terminalContainer',
     lecteur_multimedia: '.celluloid-app, #lecteurMultimedia',
   },
 };
@@ -171,14 +191,18 @@ const main = async () => {
         for (const row of p0Slots) {
           const slot = row.slotCapsule;
           const selector = P0_RUNTIME_SELECTORS[slot];
+          if (!selector) continue;
           await page.evaluate((slotId) => {
             if (typeof window.openWindowByDataLink === 'function') {
               window.openWindowByDataLink(slotId);
             }
           }, slot);
 
+          await page.waitForTimeout(1500);
+
           const selList = selector.split(',').map((s) => s.trim());
           let hasBody = false;
+          const contentTimeout = toolkitId === 'cosmic' ? 45000 : 15000;
           try {
             await page.waitForFunction(
               ({ slotId, selectors }) => {
@@ -187,7 +211,7 @@ const main = async () => {
                 return selectors.some((sel) => !!win.querySelector(sel));
               },
               { slotId: slot, selectors: selList },
-              { timeout: 15000 },
+              { timeout: contentTimeout },
             );
             hasBody = true;
           } catch {

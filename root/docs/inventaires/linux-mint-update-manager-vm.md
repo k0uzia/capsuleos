@@ -2,7 +2,7 @@
 
 **Objectif** : ground truth pour le slot `update_manager` dans `home/Debian/Mint/`.
 
-**Collecte** : SSH `capsule@192.168.1.146` · [`vm-mint-update-manager-inventory.sh`](../../tools/lab/vm-mint-update-manager-inventory.sh) · JSON [`linux-mint-update-manager-vm.json`](linux-mint-update-manager-vm.json) · campagne 2026-06-05.
+**Collecte** : SSH `<lab-inventory:linux-mint-update-manager>` · [`vm-mint-update-manager-inventory.sh`](../../tools/lab/vm-mint-update-manager-inventory.sh) · JSON [`linux-mint-update-manager-vm.json`](linux-mint-update-manager-vm.json) · campagne 2026-06-05.
 
 ---
 
@@ -63,7 +63,7 @@ Affiché tant que `show-welcome-page=true` :
 ## 4. Commandes lab
 
 ```bash
-ssh capsule@192.168.1.146 'DISPLAY=:0 bash -s' < root/tools/lab/vm-mint-update-manager-inventory.sh
+ssh <lab-inventory:linux-mint-update-manager> 'DISPLAY=:0 bash -s' < root/tools/lab/vm-mint-update-manager-inventory.sh
 node usr/lib/capsuleos/tools/lab/smoke-mint-update-manager.mjs
 node usr/lib/capsuleos/tools/validate-all.mjs
 ```

@@ -38,7 +38,7 @@
     "filezilla",
     "com.visualstudio.code"
   ],
-  "sshHost": "capsule@192.168.1.146",
+  "sshHost": "<lab-inventory:linux-mint-mintinstall>",
   "probe": {
     "pkgOk": true,
     "wmctrlOk": true,

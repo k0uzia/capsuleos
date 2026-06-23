@@ -592,7 +592,9 @@ window.CAPSULE_SKIN_PROFILES = {
         "file_roller"
       ],
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/cinnamon_settings.html"
+        "themes": "../../../usr/share/capsuleos/linux/apps/cinnamon_settings.html",
+        "visionneur_images": "../../../usr/share/capsuleos/linux/apps/visionneur_images_pix.html",
+        "visionneur_pdf": "../../../usr/share/capsuleos/linux/apps/visionneur_pdf_xreader.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -809,6 +811,11 @@ window.CAPSULE_SKIN_PROFILES = {
         "toolkitId": "cosmic",
         "explorerTemplate": "nemo-cosmic",
         "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_cosmic.html",
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_cosmic.html",
+        "lecteur_multimedia": "../../../usr/share/capsuleos/linux/apps/rhythmbox.html"
       }
     }
   },
@@ -1556,7 +1563,9 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "file_roller"
       ],
       "CAPSULE_TEMPLATE_OVERRIDES": {
-        "themes": "../../../usr/share/capsuleos/linux/apps/cinnamon_settings.html"
+        "themes": "../../../usr/share/capsuleos/linux/apps/cinnamon_settings.html",
+        "visionneur_images": "../../../usr/share/capsuleos/linux/apps/visionneur_images_pix.html",
+        "visionneur_pdf": "../../../usr/share/capsuleos/linux/apps/visionneur_pdf_xreader.html"
       },
       "CAPSULE_WINDOW_CONTEXT": {
         "family": "linux",
@@ -1773,6 +1782,11 @@ window.CAPSULE_SKIN_PROFILES_BY_ID = {
         "toolkitId": "cosmic",
         "explorerTemplate": "nemo-cosmic",
         "dragMode": "app-headerbar-passthrough"
+      },
+      "CAPSULE_TEMPLATE_OVERRIDES": {
+        "themes": "../../../usr/share/capsuleos/linux/apps/themes_cosmic.html",
+        "update_manager": "../../../usr/share/capsuleos/linux/apps/update_manager_cosmic.html",
+        "lecteur_multimedia": "../../../usr/share/capsuleos/linux/apps/rhythmbox.html"
       }
     }
   },

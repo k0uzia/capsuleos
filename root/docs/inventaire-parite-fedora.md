@@ -59,7 +59,7 @@ CAPSULE_HTTP_BASE=http://127.0.0.1:8765 node usr/lib/capsuleos/tools/lab/smoke-f
 **Bootstrap VM** (une fois) :
 
 ```bash
-ssh -i ~/.ssh/capsuleos-lab capsule@192.168.122.91 'bash -s' < root/tools/lab/vm-fedora-lab-bootstrap.sh
+ssh -i ~/.ssh/capsuleos-lab <lab-inventory:linux-lab> 'bash -s' < root/tools/lab/vm-fedora-lab-bootstrap.sh
 bash root/tools/lab/vm-fedora-playbook-capture.sh --check-tools   # doit afficher OK
 ```
 

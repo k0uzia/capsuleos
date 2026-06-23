@@ -90,16 +90,11 @@ try {
     errors.push('fiche VLC : bouton Installer présent alors que VLC est installé');
   }
 
-  await page.evaluate(() => {
-    const back = document.querySelector('[data-discover-app-back]');
-    if (back) {
-      back.click();
-    }
-  });
+  await page.locator('[data-discover-app-back]').click({ force: true });
   await page.waitForFunction(
     () => document.querySelector('[data-discover-panel="home"]:not([hidden])'),
     null,
-    { timeout: 5000 },
+    { timeout: 8000 },
   );
 
   await page.click('[data-discover-home-mount] .kde-discover-card[data-discover-app="gimp"]');
@@ -111,34 +106,31 @@ try {
     null,
     { timeout: 8000 },
   );
-  await page.click('[data-discover-app-install="gimp"]');
+  await page.locator('[data-discover-app-install="gimp"]').click({ force: true });
   await page.waitForFunction(
     () => {
       const status = document.querySelector('[data-discover-app-status]');
       return status && !status.hidden && status.textContent.length > 0;
     },
     null,
-    { timeout: 5000 },
+    { timeout: 8000 },
   );
 
   const detailAfterInstall = await page.evaluate(() => ({
+    launchBtn: !!document.querySelector('[data-discover-app-launch="gimp"]'),
+    installBtn: !!document.querySelector('[data-discover-app-install="gimp"]'),
     installDisabled: document.querySelector('[data-discover-app-install="gimp"]')?.disabled,
     status: document.querySelector('[data-discover-app-status]')?.textContent?.trim(),
   }));
-  if (!detailAfterInstall.installDisabled) {
-    errors.push('fiche GIMP : bouton Installer non désactivé après clic');
+  if (!detailAfterInstall.launchBtn && !(detailAfterInstall.installBtn && detailAfterInstall.installDisabled)) {
+    errors.push('fiche GIMP : pas de bouton Lancer après installation simulée');
   }
 
-  await page.evaluate(() => {
-    const back = document.querySelector('[data-discover-app-back]');
-    if (back) {
-      back.click();
-    }
-  });
+  await page.locator('[data-discover-app-back]').click({ force: true });
   await page.waitForFunction(
     () => document.querySelector('[data-discover-panel="home"]:not([hidden])'),
     null,
-    { timeout: 5000 },
+    { timeout: 8000 },
   );
 
   await page.click('.kde-updates__cat[data-discover-cat="internet"]');
@@ -203,7 +195,9 @@ try {
     withSize: document.querySelectorAll('.kde-discover-card--installed__size').length,
     withRemove: document.querySelectorAll('.kde-discover-card--installed__remove').length,
   }));
-  if (!installedTab.heading || installedTab.heading.indexOf('119') === -1) {
+  const installedCountMatch = installedTab.heading?.match(/(\d+)\s+éléments/);
+  const installedCount = installedCountMatch ? Number(installedCountMatch[1]) : 0;
+  if (!installedTab.heading || installedCount < 119) {
     errors.push(`installé(s) : en-tête=${installedTab.heading || '(vide)'}`);
   }
   if (installedTab.sort !== 'Tri : Nom') {

@@ -61,7 +61,7 @@
   "pallier": 4,
   "pallierStatus": "closed",
   "vm": {
-    "host": "goupil@192.168.123.236",
+    "host": "<lab-inventory:linux-kde-neon>",
     "inventory": "linux-kde-neon-vm.json",
     "inventoryCollectedAt": "2026-06-10T13:28:41Z",
     "labConfig": "etc/capsuleos/lab-inventory.json",
@@ -87,7 +87,8 @@
     "pi_global": 95,
     "status_global": "ok",
     "apps": {
-      "nemo": "v4-p0-closed",
+      "nemo": "dolphin-pivot-closed-2026-06-20",
+      "themes": "settings-pivot-closed-2026-06-20",
       "update_manager": "v4-p1-closed",
       "firefox": "v4-p1-closed",
       "terminal": "p5-closed"
@@ -239,6 +240,9 @@
   },
   "campaignDiscoverSidebarAssets": "discover-sidebar-assets-kde-neon",
   "campaignDiscoverSidebarAssetsStatus": "closed",
+  "campaignSettingsPivot": "settings-pivot-kde-neon",
+  "campaignSettingsPivotStatus": "closed",
+  "campaignSettingsPivotClosedAt": "2026-06-20T19:52:32.780Z",
   "campaignDiscoverSidebarAssetsClosedAt": "2026-06-16T09:57:00.000Z",
   "campaignDiscoverSidebarAssetsStartedAt": "2026-06-11T13:00:00.000Z",
   "discoverSidebarAssets": {
@@ -311,12 +315,14 @@
       "smoke": "smoke-kde-neon-v4-p2.mjs",
       "vmFlag": "--b2-b3-apps"
     },
-    "G5_DolphinClosedAt": "2026-06-10T16:20:00.000Z",
+    "G5_DolphinClosedAt": "2026-06-20T16:47:00.000Z",
     "G5_deliverables": {
-      "vmCapture": "--dolphin-g5 (vues + search + filtre + hamburger)",
+      "vmCapture": "--dolphin-g5 + --dolphin-split (7 PNG vm-dolphin-*)",
+      "capsuleCapture": "capsule-dolphin-* (8 scènes)",
       "gridPolish": "dolphin.skin.css gap/width/padding icônes",
-      "smoke": "smoke-kde-neon-dolphin.mjs (+ filtre recherche)",
-      "doc": "linux-kde-neon-dolphin-diff.md"
+      "smoke": "smoke-kde-neon-dolphin.mjs + smoke-dolphin-vm-parity.mjs",
+      "doc": "linux-kde-neon-dolphin-diff.md",
+      "baseline": "03-dolphin KdVp compare sans drift"
     },
     "G6_DiscoverClosedAt": "2026-06-10T17:10:00.000Z",
     "G6_DiscoverReopenedAt": "2026-06-11T13:00:00.000Z",
@@ -398,24 +404,72 @@
     "formalClosedAt": "2026-06-09T12:51:14.601Z"
   },
   "lastNeonPass": {
-    "evaluatedAt": "2026-06-16T09:41:55.896Z",
+    "evaluatedAt": "2026-06-20T19:52:32.780Z",
     "passOk": true,
     "pi_global": 100,
     "tool": "run-kde-neon-pass.mjs",
     "captureCompare": "no drift",
     "failures": []
   },
-  "updatedAt": "2026-06-16T12:58:36.515Z",
+  "updatedAt": "2026-06-20T19:52:32.780Z",
+  "dolphinVmLastRun": {
+    "evaluatedAt": "2026-06-20T16:47:00.000Z",
+    "vmFlags": [
+      "--dolphin-g5",
+      "--dolphin-split"
+    ],
+    "smokes": {
+      "smoke-kde-neon-dolphin": true,
+      "smoke-dolphin-vm-parity": true
+    },
+    "pairs": 7,
+    "baseline03": "no drift"
+  },
   "discoverVmLastRun": {
-    "evaluatedAt": "2026-06-11T12:12:10.000Z",
-    "vmFlag": "--discover-vm-100",
+    "evaluatedAt": "2026-06-20T16:14:06.069Z",
+    "vmFlags": [
+      "--discover-vm-100",
+      "--discover-installed-details"
+    ],
     "smokes": {
       "smoke-discover-vm-parity": true,
       "smoke-kde-neon-discover": true,
       "smoke-discover-kde-neon": true
     },
-    "pairs": 7,
+    "pairs": 21,
+    "installedDetailCaptures": 14,
+    "note": "fiches Installé(s) sans wtype — plasma-discover --application + virsh/ydotool",
     "kdvp07Flaky": "compare baseline 07-discover-detail-vlc ~20% drift (carrousel)"
+  },
+  "settingsVmLastRun": {
+    "evaluatedAt": "2026-06-20T19:52:32.780Z",
+    "inventory": {
+      "moduleCount": 92,
+      "p0Count": 22,
+      "p0SurfacesCovered": 22,
+      "tool": "collect-vm-kde-settings-inventory.mjs"
+    },
+    "visualShots": 10,
+    "phiShotsAt90": 2,
+    "phiShotsNear90": 6,
+    "themePreviews": {
+      "count": 14,
+      "schemeCrops": 11,
+      "source": "LnF preview.png + crops tuiles KCM",
+      "tool": "pull-kde-neon-settings-theme-previews.sh · extract-kde-settings-vm-tile-crops.mjs"
+    },
+    "smokes": {
+      "smoke-kde-settings-vm-parity": true,
+      "smoke-h6-kde-settings-ready": true,
+      "smoke-kde-settings-visual-parity": true,
+      "verify-kde-settings-parity-chain": true
+    },
+    "phiThemesAggregate": 93,
+    "focusParity": "root/docs/inventaires/linux-kde-neon-kde-settings-focus-parity.json",
+    "doc": "root/docs/inventaires/linux-kde-neon-kde-settings-diff.md",
+    "campaignStatus": "closed",
+    "passOk": true,
+    "note": "Pivot P0 clôturé — 2 shots ≥90 · P1 démarré (kcm-sound hub)"
   },
   "scenariosCaptureLastCycle": {
     "evaluatedAt": "2026-06-16T09:47:05.232Z",

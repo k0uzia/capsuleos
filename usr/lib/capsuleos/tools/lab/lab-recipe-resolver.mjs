@@ -185,6 +185,10 @@ export const buildRemoteEnv = (host) => {
   if (host.sessionType && String(host.sessionType).includes('wayland')) {
     parts.push('export WAYLAND_DISPLAY=${WAYLAND_DISPLAY:-wayland-0}');
   }
+  if (host.sessionEnvProcess) {
+    const proc = host.sessionEnvProcess;
+    parts.push(`eval $(tr "\\\\0" "\\\\n" < /proc/$(pgrep -n ${proc})/environ 2>/dev/null | grep -E "^(DISPLAY|WAYLAND_DISPLAY|XAUTHORITY|XDG_RUNTIME_DIR|DBUS_SESSION_BUS_ADDRESS|XDG_CURRENT_DESKTOP)=" | sed "s/^/export /")`);
+  }
   if (host.xauthorityDiscovery === 'mutter-xwayland') {
     parts.push('export XAUTHORITY=$(ls /run/user/$(id -u)/.mutter-Xwaylandauth.* 2>/dev/null | head -1)');
   } else if (host.xauthorityDiscovery === 'plasma-xauth') {

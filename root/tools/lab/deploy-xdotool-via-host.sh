@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Compile xdotool sur l'hôte (RHEL/Fedora avec gcc) et déploie sur la VM lab (~/.local).
 # Usage: deploy-xdotool-via-host.sh <ssh-target> [identity]
-# Exemple: deploy-xdotool-via-host.sh capsule@192.168.122.234 ~/.ssh/capsuleos-lab
+# Exemple: deploy-xdotool-via-host.sh user@host ~/.ssh/capsuleos-lab
 set -euo pipefail
 
 TARGET="${1:?ssh target requis}"

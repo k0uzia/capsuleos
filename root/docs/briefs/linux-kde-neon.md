@@ -7,7 +7,7 @@
 - **ID registre** : `linux-kde-neon`
 - **Famille** : linux · **Tier** : **P1** · **Statut** : active · **fidelityLevel** : 4
 - **Toolkit** : kde / Plasma · **Vendor** : neon
-- **VM lab** : `capsule@192.168.122.48` · clé `~/.ssh/capsuleos-lab`
+- **VM lab** : `<lab-inventory:linux-kde>` · clé `~/.ssh/capsuleos-lab`
 - **Ground truth** : [`ground-truth-kde.md`](../ground-truth-kde.md)
 
 ## v15 — objectifs

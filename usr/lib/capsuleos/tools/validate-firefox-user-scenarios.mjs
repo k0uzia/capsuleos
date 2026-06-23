@@ -29,8 +29,8 @@ if (!fs.existsSync(CONTRACT)) {
     errors.push('template doit être firefox.html');
   }
   const p0 = (contract.scenarios || []).filter((s) => s.priority === 'P0' && !s.optional);
-  if (p0.length < 4) {
-    errors.push('au moins 4 scénarios P0 attendus (F1–F4)');
+  if (p0.length < 6) {
+    errors.push('au moins 6 scénarios P0 attendus (F1–F6)');
   }
   p0.forEach((scenario) => {
     if (!scenario.proofs || !scenario.proofs.smoke) {
@@ -48,11 +48,29 @@ const kernelText = fs.readFileSync(KERNEL, 'utf8');
   'syncFirefoxGnomeDataset',
   'supportsFirefoxGnomeChrome',
   'initFirefoxBrowser',
+  'CapsuleSimulatedWebResolver',
+  'applyFirefoxContribPack',
+  'applyNavigation',
 ].forEach((needle) => {
   if (!kernelText.includes(needle)) {
     errors.push(`firefoxBrowser.js : attendu « ${needle} »`);
   }
 });
+
+const resolverPath = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/simulatedWebResolver.js');
+if (!fs.existsSync(resolverPath)) {
+  errors.push('simulatedWebResolver.js manquant');
+}
+
+const bridgePath = path.join(ROOT, 'usr/lib/capsuleos/shells/linux/capsule-mnt-bridge.js');
+if (!fs.existsSync(bridgePath)) {
+  errors.push('capsule-mnt-bridge.js manquant');
+}
+
+const contribBundle = path.join(ROOT, 'var/lib/capsuleos/generated/capsule-firefox-contrib.js');
+if (!fs.existsSync(contribBundle)) {
+  errors.push('capsule-firefox-contrib.js non généré — build-firefox-contrib-bundle.mjs');
+}
 
 const templateText = fs.readFileSync(TEMPLATE, 'utf8');
 [
@@ -63,6 +81,7 @@ const templateText = fs.readFileSync(TEMPLATE, 'utf8');
   'data-firefox-gnome-address',
   'data-firefox-gnome-bookmarks',
   'data-firefox-gnome-newtab',
+  'data-browser-newtab-shortcuts',
   'data-firefox-gnome-chrome',
 ].forEach((needle) => {
   if (!templateText.includes(needle)) {

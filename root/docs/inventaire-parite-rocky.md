@@ -259,7 +259,7 @@ Commande : `node usr/lib/capsuleos/tools/lab/run-vm-deep-audit-phases.mjs --id l
 | Audit Nautilus | `audit-nautilus-rocky.mjs` OK (Adwaita, fil d'Ariane) |
 | Smoke shell visuel | `smoke-rocky-shell-visual.mjs` — overview, dash 7, CSD, fond WebP |
 
-VM lab (`192.168.122.234`) : **en ligne** juin 2026 — pull assets, captures VM (8 PNG), assets Paramètres **12/12**, comparaison **14/14** paires. Checklist panel : `active` VM fragile Wayland (P1, `running` OK).
+VM lab (`<lab-ip>`) : **en ligne** juin 2026 — pull assets, captures VM (8 PNG), assets Paramètres **12/12**, comparaison **14/14** paires. Checklist panel : `active` VM fragile Wayland (P1, `running` OK).
 
 ---
 

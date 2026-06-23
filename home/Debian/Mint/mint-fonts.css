@@ -1,6 +1,6 @@
 /**
  * Polices Linux Mint — ground truth VM (gsettings org.cinnamon.desktop.interface font-name = 'Ubuntu 10').
- * Source : /usr/share/fonts/truetype/ubuntu/ (VM 192.168.1.146) → assets/fonts/vendors/mint/
+ * Source : /usr/share/fonts/truetype/ubuntu/ (VM linux-mint) → assets/fonts/vendors/mint/
  */
 @font-face {
     font-family: "Ubuntu";

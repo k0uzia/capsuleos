@@ -106,7 +106,7 @@ Overview Alma **15/15** — voir [inventaire-parite-alma.md § Overview](inventa
 |---------|--------------|
 | AlmaLinux **10.2** Workstation | `cat /etc/os-release` |
 | Session **graphique** (GDM Wayland) | pas SSH seul |
-| Utilisateur lab `capsule` | IP NAT typique `192.168.122.199` |
+| Utilisateur lab `capsule` | IP NAT typique `<lab-ip>` |
 | Domaine libvirt | `virshName: almalinux10` (peut être absent sur hôte agent — VM joignable par IP) |
 
 ### 0.2 Paquets sonde (VM)
@@ -117,13 +117,13 @@ Identique Rocky — voir [procedure-lab-linux-rocky-gnome.md §0.2](procedure-la
 
 ```bash
 ssh-keygen -t ed25519 -f ~/.ssh/capsuleos-lab -N ""
-ssh-copy-id -i ~/.ssh/capsuleos-lab.pub capsule@192.168.122.199
+ssh-copy-id -i ~/.ssh/capsuleos-lab.pub <lab-inventory:linux-lab>
 ```
 
 ### 0.4 Test Wayland
 
 ```bash
-ssh -i ~/.ssh/capsuleos-lab capsule@192.168.122.199 \
+ssh -i ~/.ssh/capsuleos-lab <lab-inventory:linux-lab> \
   'export DISPLAY=:0 XAUTHORITY=$(ls /run/user/$(id -u)/.mutter-Xwaylandauth.* 2>/dev/null | head -1); wmctrl -l; echo exit:$?'
 ```
 
@@ -250,7 +250,7 @@ Détail du pattern : [procedure-scenarios-pedagogiques-gnome.md](procedure-scena
 **Install VM** : le RPM `gnome-calendar` est absent des dépôts el10. Contournement lab — Flatpak Flathub :
 
 ```bash
-ssh -i ~/.ssh/capsuleos-lab capsule@192.168.122.199 \
+ssh -i ~/.ssh/capsuleos-lab <lab-inventory:linux-lab> \
   'sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo && \
    sudo flatpak install -y flathub org.gnome.Calendar'
 ```
@@ -286,7 +286,7 @@ Matrice vendor dédiée (R-LOC1) — plus d'emprunt silencieux sur `gnome-settin
 # Bootstrap initial (déjà fait) — recréer si dérive
 node usr/lib/capsuleos/tools/lab/bootstrap-gnome-settings-matrices.mjs --id linux-alma --write
 
-# Collecte tour panneaux VM (SSH capsule@192.168.122.199)
+# Collecte tour panneaux VM (SSH <lab-inventory:linux-lab>)
 node usr/lib/capsuleos/tools/lab/collect-vm-gnome-settings-playbook.mjs --id linux-alma
 
 # Gates playbook

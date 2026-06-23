@@ -61,6 +61,13 @@ export const h6Profile = (registryId) => {
       requiresInteractionInventory: false,
       skipH5P0: true,
     },
+    'linux-popos': {
+      requiresHotCorners: false,
+      requiresBaseline: false,
+      requiresPlaybook: false,
+      requiresInteractionInventory: false,
+      skipH5P0: true,
+    },
   };
 
   const base = byRegistry[registryId] || {

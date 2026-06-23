@@ -573,7 +573,7 @@
         "visualMatch": "ok",
         "appCt": "ok"
       },
-      "note": "Campagne store Ubuntu 2026-06-13 — VM capsule@192.168.122.141 (virsh repli) ; captures Capsule 9 vues ; smokes S1–S12 OK.",
+      "note": "Campagne store Ubuntu 2026-06-13 — VM <lab-inventory:linux-ubuntu> (virsh repli) ; captures Capsule 9 vues ; smokes S1–S12 OK.",
       "contentSpec": {
         "phase": "C1",
         "viewport": "1280x800",

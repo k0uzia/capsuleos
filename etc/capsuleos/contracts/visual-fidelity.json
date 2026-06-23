@@ -124,6 +124,29 @@
         ]
       }
     },
+    "linux-popos": {
+      "typography": {
+        "uiStack": ["Open Sans", "Ubuntu Sans", "Cantarell"],
+        "monoStack": ["Ubuntu Mono", "DejaVu Sans Mono"],
+        "uiSizePt": 11,
+        "monoSizePt": 11,
+        "tokenFile": "home/Debian/PopOS/popos-overrides.css"
+      },
+      "viewContexts": {
+        "viewportLab": { "width": 1920, "height": 1080 },
+        "playwright": { "width": 1280, "height": 800 }
+      },
+      "mime": {
+        "iconTheme": "Pop",
+        "notes": "Collecte via collect-visual-fidelity-inventory.mjs --ssh — COSMIC"
+      },
+      "accessibility": {
+        "cssImports": [
+          "home/Debian/PopOS/style/cosmic-shell/a11y-popos.css",
+          "usr/share/capsuleos/themes/linux/gnome-shell-preferences.base.css"
+        ]
+      }
+    },
     "linux-rocky": {
       "typography": {
         "uiStack": ["Red Hat Text", "Cantarell"],

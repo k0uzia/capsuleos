@@ -1,7 +1,7 @@
 {
-  "collectedAt": "2026-06-04T16:05:45Z",
-  "firefoxVersion": "Mozilla Firefox 151.0.1",
-  "package": "firefox 151.0.1+linuxmint1+zena",
+  "collectedAt": "2026-06-22T14:43:58Z",
+  "firefoxVersion": "Mozilla Firefox 146.0.1",
+  "package": "firefox 146.0.1+linuxmint1+zena",
   "distribution": {
     "iniPath": "/usr/lib/firefox/distribution/distribution.ini",
     "preferences": {
@@ -17,8 +17,8 @@
       "browser.tabs.inTitlebar": "0"
     },
     "langpacks": [
-      "langpack-en-CA@firefox.mozilla.org.xpi",
       "langpack-fr@firefox.mozilla.org.xpi",
+      "langpack-en-CA@firefox.mozilla.org.xpi",
       "langpack-en-GB@firefox.mozilla.org.xpi"
     ]
   },
@@ -30,40 +30,30 @@
     "icon": "firefox"
   },
   "themes": {
-    "cinnamon": "Mint-Y-Dark-Aqua",
-    "gtk": "Mint-Y-Aqua",
-    "icons": "Mint-Y-Sand"
+    "cinnamon": "Mint-Y-Blue",
+    "gtk": "Mint-Y-Blue",
+    "icons": "Mint-Y-Blue"
   },
   "windowManager": {
     "windows": [
       {
-        "id": "0x03c00003",
+        "id": "0x03800003",
         "wm_class": "Navigator.firefox",
         "title": "Mozilla Firefox"
       },
       {
-        "id": "0x03c00011",
+        "id": "0x0380001e",
         "wm_class": "Navigator.firefox",
         "title": "Mozilla Firefox"
       },
       {
-        "id": "0x03c0004b",
-        "wm_class": "Navigator.firefox",
-        "title": "Mozilla Firefox"
-      },
-      {
-        "id": "0x03c0006d",
-        "wm_class": "Navigator.firefox",
-        "title": "Mozilla Firefox"
-      },
-      {
-        "id": "0x03c00092",
+        "id": "0x03800035",
         "wm_class": "Navigator.firefox",
         "title": "Mozilla Firefox"
       }
     ],
     "sampleGeometry": {
-      "window": "62914563",
+      "window": "58720259",
       "x": "0",
       "y": "64",
       "width": "1280",
@@ -73,11 +63,11 @@
     "wmClass": "Navigator.firefox"
   },
   "iconPaths": [
-    "/usr/share/icons/Mint-Y/apps/24/firefox.png",
-    "/usr/share/icons/Mint-Y/apps/64/firefox.png",
-    "/usr/share/icons/Mint-Y/apps/48/firefox.png",
-    "/usr/share/icons/Mint-Y/apps/256/firefox.png",
-    "/usr/share/icons/Mint-Y/apps/256@2x/firefox.png"
+    "/usr/share/icons/Mint-Y/apps/16/firefox.png",
+    "/usr/share/icons/Mint-Y/apps/32/firefox.png",
+    "/usr/share/icons/Mint-Y/apps/22@2x/firefox.png",
+    "/usr/share/icons/Mint-Y/apps/64@2x/firefox.png",
+    "/usr/share/icons/Mint-Y/apps/256/firefox.png"
   ],
   "notes": [
     "browser.tabs.inTitlebar=0 → barre de titre Muffin séparée (pas d’onglets dans le chrome WM).",

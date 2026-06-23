@@ -1,6 +1,6 @@
 # Assets ground truth — KDE neon VM
 # registryId: linux-kde-neon
-# ssh: goupil@192.168.123.223
+# ssh: <lab-inventory:linux-kde-neon>
 # collected: 2026-06-05 (wallpaper corrigé 2026-06-05)
 
 neon-logo.svg ← /usr/share/icons/hicolor/scalable/places/start-here-kde-neon.svg
@@ -22,7 +22,7 @@ discover/screenshots/vlc-screenshot-win7.jpg ← http://images.videolan.org/vlc/
 discover/screenshots/vlc-screenshot-lion.jpg ← …/vlc-2.0-lion.jpg (sha256 4eceb7ec…)
 discover/screenshots/vlc-screenshot-poney.jpg ← …/vlc-2.0-poney.jpg (sha256 cce040bf…)
 
-# Discover Installé(s) — pull 2026-06-11T12:49:05Z (goupil@192.168.123.52)
+# Discover Installé(s) — pull 2026-06-11T12:49:05Z (registryId: linux-kde-neon)
 discover/ark.png ← /usr/share/icons/hicolor/48x48/apps/ark.png (sha256 c82161f4746f8099cb207b4257fdbbd96b28f92152433ae4079da3a1bedfe90f)
 discover/dolphin.svg ← /usr/share/icons/hicolor/scalable/apps/org.kde.dolphin.svg (sha256 4db296fd17d2e1a47602a60708afb2850e4f94330990102b7a512c76b68ec9ce)
 discover/gwenview.png ← /usr/share/icons/hicolor/48x48/apps/gwenview.png (sha256 3cef6797702cea4f2ca9b695db10029a6060585beb70f1c6ad778846f7936ecf)
@@ -41,7 +41,7 @@ discover/vlc-installed.png ← /usr/share/icons/hicolor/48x48/apps/vlc.png (sha2
 discover/vlc.png ← /usr/share/icons/hicolor/48x48/apps/vlc.png (sha256 c5fe9c088e566685ca179e4c4afaee3538dc1dc2fe17b0c13ad29bf300584f69)
 panel/firefox.png ← /usr/share/icons/hicolor/48x48/apps/firefox.png (sha256 d9df64a49f932e5f7c8e1f5fccc0b998dafb57f9a7ed2ac9a8e4a43bed45eb1a)
 
-# Discover sidebar — pull 2026-06-11T13:37:24Z (goupil@192.168.123.52)
+# Discover sidebar — pull 2026-06-11T13:37:24Z (registryId: linux-kde-neon)
 discover/sidebar/nav/go-home-symbolic.svg ← /usr/share/icons/breeze/actions/24/go-home-symbolic.svg (sha256 d806b591d192e870836e970b97a800639b3aff41ab87146e4675d9f01fe27534)
 discover/sidebar/nav/install-symbolic.svg ← /usr/share/icons/breeze/status/24/install-symbolic.svg (sha256 53774077ef36a56ae929626ae3e4996d2b30a8413f2edd7cb9dad704fea0bca1)
 discover/sidebar/nav/system-software-update-symbolic.svg ← /usr/share/icons/breeze/status/24/system-software-update-symbolic.svg (sha256 751fd9771da10ae9d5c6c76a2a7134ae61058190047162db42d05460a2a488b2)
@@ -62,7 +62,7 @@ discover/sidebar/categories/applications-system.svg ← /usr/share/icons/breeze/
 discover/sidebar/categories/applications-utilities.svg ← /usr/share/icons/breeze/categories/22/applications-utilities.svg (sha256 7c01832491649b055ebc0a6326b2ed271758d6dcec37dfcdd374e031e892ecf6)
 discover/sidebar/categories/plasma.svg ← /usr/share/icons/breeze/preferences/32/plasma.svg (sha256 064d716a39fec37eb0801f0e88ffd858ad88d3b3ecff2fb236fd99d5fe0f2c71)
 
-# Discover sidebar — pull 2026-06-11T13:44:04Z (goupil@192.168.123.52)
+# Discover sidebar — pull 2026-06-11T13:44:04Z (registryId: linux-kde-neon)
 discover/sidebar/nav/go-home-symbolic.svg ← /usr/share/icons/breeze/actions/24/go-home-symbolic.svg (sha256 d806b591d192e870836e970b97a800639b3aff41ab87146e4675d9f01fe27534)
 discover/sidebar/nav/install-symbolic.svg ← /usr/share/icons/breeze/status/24/install-symbolic.svg (sha256 53774077ef36a56ae929626ae3e4996d2b30a8413f2edd7cb9dad704fea0bca1)
 discover/sidebar/nav/system-software-update-symbolic.svg ← /usr/share/icons/breeze/status/24/system-software-update-symbolic.svg (sha256 751fd9771da10ae9d5c6c76a2a7134ae61058190047162db42d05460a2a488b2)
@@ -84,7 +84,7 @@ discover/sidebar/categories/applications-system.svg ← /usr/share/icons/breeze/
 discover/sidebar/categories/applications-utilities.svg ← /usr/share/icons/breeze/categories/22/applications-utilities.svg (sha256 7c01832491649b055ebc0a6326b2ed271758d6dcec37dfcdd374e031e892ecf6)
 discover/sidebar/categories/plasma.svg ← /usr/share/icons/breeze/preferences/32/plasma.svg (sha256 064d716a39fec37eb0801f0e88ffd858ad88d3b3ecff2fb236fd99d5fe0f2c71)
 
-# Discover sidebar — pull 2026-06-11T13:49:59Z (goupil@192.168.123.52)
+# Discover sidebar — pull 2026-06-11T13:49:59Z (registryId: linux-kde-neon)
 discover/sidebar/nav/go-home-symbolic.svg ← /usr/share/icons/breeze/actions/24/go-home-symbolic.svg (sha256 d806b591d192e870836e970b97a800639b3aff41ab87146e4675d9f01fe27534)
 discover/sidebar/nav/install-symbolic.svg ← /usr/share/icons/breeze/status/24/install-symbolic.svg (sha256 53774077ef36a56ae929626ae3e4996d2b30a8413f2edd7cb9dad704fea0bca1)
 discover/sidebar/nav/system-software-update-symbolic.svg ← /usr/share/icons/breeze/status/24/system-software-update-symbolic.svg (sha256 751fd9771da10ae9d5c6c76a2a7134ae61058190047162db42d05460a2a488b2)
@@ -106,7 +106,7 @@ discover/sidebar/categories/applications-system-symbolic.svg ← /usr/share/icon
 discover/sidebar/categories/applications-utilities-symbolic.svg ← /usr/share/icons/breeze/categories/22/applications-utilities-symbolic.svg (sha256 294736fb3d18a2e4af406967cba37a6312bbdbd312b542c122a1060e011f8239)
 discover/sidebar/categories/preferences-plugin-symbolic.svg ← /usr/share/icons/breeze/apps/22/preferences-plugin-symbolic.svg (sha256 4d4b9b26a4d6cf0d366628364913f2c0bac22ee55776f9bffe14a9431bb3afc6)
 
-# Discover sidebar — pull 2026-06-11T14:35:16Z (goupil@192.168.123.52)
+# Discover sidebar — pull 2026-06-11T14:35:16Z (registryId: linux-kde-neon)
 discover/sidebar/nav/go-home-symbolic.svg ← /usr/share/icons/breeze/actions/24/go-home-symbolic.svg (sha256 d806b591d192e870836e970b97a800639b3aff41ab87146e4675d9f01fe27534)
 discover/sidebar/nav/install-symbolic.svg ← /usr/share/icons/breeze/status/24/install-symbolic.svg (sha256 53774077ef36a56ae929626ae3e4996d2b30a8413f2edd7cb9dad704fea0bca1)
 discover/sidebar/nav/system-software-update-symbolic.svg ← /usr/share/icons/breeze/status/24/system-software-update-symbolic.svg (sha256 751fd9771da10ae9d5c6c76a2a7134ae61058190047162db42d05460a2a488b2)
@@ -128,7 +128,7 @@ discover/sidebar/categories/applications-system-symbolic.svg ← /usr/share/icon
 discover/sidebar/categories/applications-utilities-symbolic.svg ← /usr/share/icons/breeze/categories/22/applications-utilities-symbolic.svg (sha256 294736fb3d18a2e4af406967cba37a6312bbdbd312b542c122a1060e011f8239)
 discover/sidebar/categories/preferences-plugin-symbolic.svg ← /usr/share/icons/breeze/apps/22/preferences-plugin-symbolic.svg (sha256 4d4b9b26a4d6cf0d366628364913f2c0bac22ee55776f9bffe14a9431bb3afc6)
 
-# Discover Installé(s) — pull 2026-06-11T14:35:30Z (goupil@192.168.123.52)
+# Discover Installé(s) — pull 2026-06-11T14:35:30Z (registryId: linux-kde-neon)
 discover/ark.png ← /usr/share/icons/hicolor/48x48/apps/ark.png (sha256 c82161f4746f8099cb207b4257fdbbd96b28f92152433ae4079da3a1bedfe90f)
 discover/dolphin.svg ← /usr/share/icons/hicolor/scalable/apps/org.kde.dolphin.svg (sha256 4db296fd17d2e1a47602a60708afb2850e4f94330990102b7a512c76b68ec9ce)
 discover/gwenview.png ← /usr/share/icons/hicolor/48x48/apps/gwenview.png (sha256 3cef6797702cea4f2ca9b695db10029a6060585beb70f1c6ad778846f7936ecf)
@@ -147,7 +147,7 @@ discover/vlc-installed.png ← /usr/share/icons/hicolor/48x48/apps/vlc.png (sha2
 discover/vlc.png ← /usr/share/icons/hicolor/48x48/apps/vlc.png (sha256 c5fe9c088e566685ca179e4c4afaee3538dc1dc2fe17b0c13ad29bf300584f69)
 panel/firefox.png ← /usr/share/icons/hicolor/48x48/apps/firefox.png (sha256 d9df64a49f932e5f7c8e1f5fccc0b998dafb57f9a7ed2ac9a8e4a43bed45eb1a)
 
-# Discover catégories — pull 2026-06-11T15:00:33Z (goupil@192.168.123.52)
+# Discover catégories — pull 2026-06-11T15:00:33Z (registryId: linux-kde-neon)
 discover/firefox.png ← /usr/share/icons/hicolor/48x48/apps/firefox.png (sha256 d9df64a49f932e5f7c8e1f5fccc0b998dafb57f9a7ed2ac9a8e4a43bed45eb1a)
 discover/app.svg ← /usr/share/icons/hicolor/scalable/apps/kdeconnect.svg (sha256 eb466ac43c6dd056afd9675d3698ff8b3e138b8275cb8e3f4bf9f8e11db3b85a)
 discover/nonplasma.svg ← /usr/share/icons/hicolor/scalable/apps/kdeconnect.svg (sha256 eb466ac43c6dd056afd9675d3698ff8b3e138b8275cb8e3f4bf9f8e11db3b85a)
@@ -160,10 +160,10 @@ discover/kwalletmanager.png ← /usr/share/icons/hicolor/48x48/apps/kwalletmanag
 discover/vim.png ← /usr/share/icons/hicolor/48x48/apps/gvim.png (sha256 bbc05da63a7c92e428ae899356cdba364e9a8efc872e37a083f6fbf81510c1cd)
 discover/yelp.svg ← /usr/share/icons/hicolor/scalable/apps/org.gnome.Yelp.svg (sha256 fcd475fac1a165579213f0981b4059d4d587c46fbe85753d9fe338cef18e9733)
 
-# Discover catégories — pull 2026-06-11T15:01:52Z (goupil@192.168.123.52)
+# Discover catégories — pull 2026-06-11T15:01:52Z (registryId: linux-kde-neon)
 discover/plasma-kdeconnect.svg ← /usr/share/icons/hicolor/scalable/apps/kdeconnect.svg (sha256 eb466ac43c6dd056afd9675d3698ff8b3e138b8275cb8e3f4bf9f8e11db3b85a)
 
-# Discover catégories — pull 2026-06-11T15:07:15Z (goupil@192.168.123.52)
+# Discover catégories — pull 2026-06-11T15:07:15Z (registryId: linux-kde-neon)
 discover/orca.png ← /usr/share/icons/hicolor/48x48/apps/orca.png (sha256 b600e5eae0a12841bc2c34e39088491adce51f666ac3f0b38bfa1dc90c6ed36a)
 discover/kcm-access.svg ← /usr/share/icons/breeze/preferences/22/preferences-desktop-accessibility.svg (sha256 64c86ebd76874be479977029de8fa15076d765303f5d92ffb92cffaeaf3c333d)
 discover/step.svg ← /usr/share/icons/breeze/apps/48/step.svg (sha256 422d4aea6424868b4706b51123909de38fa0c5e881424733ac0df558f31a0c62)
@@ -175,7 +175,7 @@ discover/kmplot.svg ← /usr/share/icons/breeze/apps/48/org.kde.kmplot.svg (sha2
 # import-manifest-staging 2026-06-16T10:01:02.271Z
 files: 31
 
-# Discover sidebar — pull 2026-06-16T12:30:54Z (goupil@192.168.123.236)
+# Discover sidebar — pull 2026-06-16T12:30:54Z (registryId: linux-kde-neon)
 discover/sidebar/nav/go-home-symbolic.svg ← /usr/share/icons/breeze/actions/24/go-home-symbolic.svg (sha256 d806b591d192e870836e970b97a800639b3aff41ab87146e4675d9f01fe27534)
 discover/sidebar/nav/install-symbolic.svg ← /usr/share/icons/breeze/status/24/install-symbolic.svg (sha256 53774077ef36a56ae929626ae3e4996d2b30a8413f2edd7cb9dad704fea0bca1)
 discover/sidebar/nav/system-software-update-symbolic.svg ← /usr/share/icons/breeze/status/24/system-software-update-symbolic.svg (sha256 751fd9771da10ae9d5c6c76a2a7134ae61058190047162db42d05460a2a488b2)
@@ -197,7 +197,7 @@ discover/sidebar/categories/applications-system-symbolic.svg ← /usr/share/icon
 discover/sidebar/categories/applications-utilities-symbolic.svg ← /usr/share/icons/breeze/categories/22/applications-utilities-symbolic.svg (sha256 294736fb3d18a2e4af406967cba37a6312bbdbd312b542c122a1060e011f8239)
 discover/sidebar/categories/preferences-plugin-symbolic.svg ← /usr/share/icons/breeze/apps/22/preferences-plugin-symbolic.svg (sha256 4d4b9b26a4d6cf0d366628364913f2c0bac22ee55776f9bffe14a9431bb3afc6)
 
-# Discover Installé(s) — pull 2026-06-16T12:31:09Z (goupil@192.168.123.236)
+# Discover Installé(s) — pull 2026-06-16T12:31:09Z (registryId: linux-kde-neon)
 discover/ark.png ← /usr/share/icons/hicolor/48x48/apps/ark.png (sha256 c82161f4746f8099cb207b4257fdbbd96b28f92152433ae4079da3a1bedfe90f)
 discover/dolphin.svg ← /usr/share/icons/hicolor/scalable/apps/org.kde.dolphin.svg (sha256 4db296fd17d2e1a47602a60708afb2850e4f94330990102b7a512c76b68ec9ce)
 discover/gwenview.png ← /usr/share/icons/hicolor/48x48/apps/gwenview.png (sha256 3cef6797702cea4f2ca9b695db10029a6060585beb70f1c6ad778846f7936ecf)
@@ -216,7 +216,7 @@ discover/vlc-installed.png ← /usr/share/icons/hicolor/48x48/apps/vlc.png (sha2
 discover/vlc.png ← /usr/share/icons/hicolor/48x48/apps/vlc.png (sha256 c5fe9c088e566685ca179e4c4afaee3538dc1dc2fe17b0c13ad29bf300584f69)
 panel/firefox.png ← /usr/share/icons/hicolor/48x48/apps/firefox.png (sha256 d9df64a49f932e5f7c8e1f5fccc0b998dafb57f9a7ed2ac9a8e4a43bed45eb1a)
 
-# Discover sidebar — pull 2026-06-16T12:32:00Z (goupil@192.168.123.236)
+# Discover sidebar — pull 2026-06-16T12:32:00Z (registryId: linux-kde-neon)
 discover/sidebar/nav/go-home-symbolic.svg ← /usr/share/icons/breeze/actions/24/go-home-symbolic.svg (sha256 d806b591d192e870836e970b97a800639b3aff41ab87146e4675d9f01fe27534)
 discover/sidebar/nav/install-symbolic.svg ← /usr/share/icons/breeze/status/24/install-symbolic.svg (sha256 53774077ef36a56ae929626ae3e4996d2b30a8413f2edd7cb9dad704fea0bca1)
 discover/sidebar/nav/system-software-update-symbolic.svg ← /usr/share/icons/breeze/status/24/system-software-update-symbolic.svg (sha256 751fd9771da10ae9d5c6c76a2a7134ae61058190047162db42d05460a2a488b2)
@@ -238,7 +238,7 @@ discover/sidebar/categories/applications-system-symbolic.svg ← /usr/share/icon
 discover/sidebar/categories/applications-utilities-symbolic.svg ← /usr/share/icons/breeze/categories/22/applications-utilities-symbolic.svg (sha256 294736fb3d18a2e4af406967cba37a6312bbdbd312b542c122a1060e011f8239)
 discover/sidebar/categories/preferences-plugin-symbolic.svg ← /usr/share/icons/breeze/apps/22/preferences-plugin-symbolic.svg (sha256 4d4b9b26a4d6cf0d366628364913f2c0bac22ee55776f9bffe14a9431bb3afc6)
 
-# Discover Installé(s) — pull 2026-06-16T12:32:16Z (goupil@192.168.123.236)
+# Discover Installé(s) — pull 2026-06-16T12:32:16Z (registryId: linux-kde-neon)
 discover/ark.png ← /usr/share/icons/hicolor/48x48/apps/ark.png (sha256 c82161f4746f8099cb207b4257fdbbd96b28f92152433ae4079da3a1bedfe90f)
 discover/dolphin.svg ← /usr/share/icons/hicolor/scalable/apps/org.kde.dolphin.svg (sha256 4db296fd17d2e1a47602a60708afb2850e4f94330990102b7a512c76b68ec9ce)
 discover/gwenview.png ← /usr/share/icons/hicolor/48x48/apps/gwenview.png (sha256 3cef6797702cea4f2ca9b695db10029a6060585beb70f1c6ad778846f7936ecf)
@@ -257,7 +257,7 @@ discover/vlc-installed.png ← /usr/share/icons/hicolor/48x48/apps/vlc.png (sha2
 discover/vlc.png ← /usr/share/icons/hicolor/48x48/apps/vlc.png (sha256 c5fe9c088e566685ca179e4c4afaee3538dc1dc2fe17b0c13ad29bf300584f69)
 panel/firefox.png ← /usr/share/icons/hicolor/48x48/apps/firefox.png (sha256 d9df64a49f932e5f7c8e1f5fccc0b998dafb57f9a7ed2ac9a8e4a43bed45eb1a)
 
-# Discover sidebar — pull 2026-06-16T12:33:57Z (goupil@192.168.123.236)
+# Discover sidebar — pull 2026-06-16T12:33:57Z (registryId: linux-kde-neon)
 discover/sidebar/nav/go-home-symbolic.svg ← /usr/share/icons/breeze/actions/24/go-home-symbolic.svg (sha256 d806b591d192e870836e970b97a800639b3aff41ab87146e4675d9f01fe27534)
 discover/sidebar/nav/install-symbolic.svg ← /usr/share/icons/breeze/status/24/install-symbolic.svg (sha256 53774077ef36a56ae929626ae3e4996d2b30a8413f2edd7cb9dad704fea0bca1)
 discover/sidebar/nav/system-software-update-symbolic.svg ← /usr/share/icons/breeze/status/24/system-software-update-symbolic.svg (sha256 751fd9771da10ae9d5c6c76a2a7134ae61058190047162db42d05460a2a488b2)
@@ -279,7 +279,7 @@ discover/sidebar/categories/applications-system-symbolic.svg ← /usr/share/icon
 discover/sidebar/categories/applications-utilities-symbolic.svg ← /usr/share/icons/breeze/categories/22/applications-utilities-symbolic.svg (sha256 294736fb3d18a2e4af406967cba37a6312bbdbd312b542c122a1060e011f8239)
 discover/sidebar/categories/preferences-plugin-symbolic.svg ← /usr/share/icons/breeze/apps/22/preferences-plugin-symbolic.svg (sha256 4d4b9b26a4d6cf0d366628364913f2c0bac22ee55776f9bffe14a9431bb3afc6)
 
-# Discover Installé(s) — pull 2026-06-16T12:34:13Z (goupil@192.168.123.236)
+# Discover Installé(s) — pull 2026-06-16T12:34:13Z (registryId: linux-kde-neon)
 discover/ark.png ← /usr/share/icons/hicolor/48x48/apps/ark.png (sha256 c82161f4746f8099cb207b4257fdbbd96b28f92152433ae4079da3a1bedfe90f)
 discover/dolphin.svg ← /usr/share/icons/hicolor/scalable/apps/org.kde.dolphin.svg (sha256 4db296fd17d2e1a47602a60708afb2850e4f94330990102b7a512c76b68ec9ce)
 discover/gwenview.png ← /usr/share/icons/hicolor/48x48/apps/gwenview.png (sha256 3cef6797702cea4f2ca9b695db10029a6060585beb70f1c6ad778846f7936ecf)
@@ -298,7 +298,7 @@ discover/vlc-installed.png ← /usr/share/icons/hicolor/48x48/apps/vlc.png (sha2
 discover/vlc.png ← /usr/share/icons/hicolor/48x48/apps/vlc.png (sha256 c5fe9c088e566685ca179e4c4afaee3538dc1dc2fe17b0c13ad29bf300584f69)
 panel/firefox.png ← /usr/share/icons/hicolor/48x48/apps/firefox.png (sha256 d9df64a49f932e5f7c8e1f5fccc0b998dafb57f9a7ed2ac9a8e4a43bed45eb1a)
 
-# Discover sidebar — pull 2026-06-16T12:46:47Z (goupil@192.168.123.236)
+# Discover sidebar — pull 2026-06-16T12:46:47Z (registryId: linux-kde-neon)
 discover/sidebar/nav/go-home-symbolic.svg ← /usr/share/icons/breeze/actions/24/go-home-symbolic.svg (sha256 d806b591d192e870836e970b97a800639b3aff41ab87146e4675d9f01fe27534)
 discover/sidebar/nav/install-symbolic.svg ← /usr/share/icons/breeze/status/24/install-symbolic.svg (sha256 53774077ef36a56ae929626ae3e4996d2b30a8413f2edd7cb9dad704fea0bca1)
 discover/sidebar/nav/system-software-update-symbolic.svg ← /usr/share/icons/breeze/status/24/system-software-update-symbolic.svg (sha256 751fd9771da10ae9d5c6c76a2a7134ae61058190047162db42d05460a2a488b2)
@@ -320,7 +320,7 @@ discover/sidebar/categories/applications-system-symbolic.svg ← /usr/share/icon
 discover/sidebar/categories/applications-utilities-symbolic.svg ← /usr/share/icons/breeze/categories/22/applications-utilities-symbolic.svg (sha256 294736fb3d18a2e4af406967cba37a6312bbdbd312b542c122a1060e011f8239)
 discover/sidebar/categories/preferences-plugin-symbolic.svg ← /usr/share/icons/breeze/apps/22/preferences-plugin-symbolic.svg (sha256 4d4b9b26a4d6cf0d366628364913f2c0bac22ee55776f9bffe14a9431bb3afc6)
 
-# Discover Installé(s) — pull 2026-06-16T12:47:04Z (goupil@192.168.123.236)
+# Discover Installé(s) — pull 2026-06-16T12:47:04Z (registryId: linux-kde-neon)
 discover/ark.png ← /usr/share/icons/hicolor/48x48/apps/ark.png (sha256 c82161f4746f8099cb207b4257fdbbd96b28f92152433ae4079da3a1bedfe90f)
 discover/dolphin.svg ← /usr/share/icons/hicolor/scalable/apps/org.kde.dolphin.svg (sha256 4db296fd17d2e1a47602a60708afb2850e4f94330990102b7a512c76b68ec9ce)
 discover/gwenview.png ← /usr/share/icons/hicolor/48x48/apps/gwenview.png (sha256 3cef6797702cea4f2ca9b695db10029a6060585beb70f1c6ad778846f7936ecf)
@@ -338,3 +338,4 @@ discover/systemmonitor.svg ← /usr/share/icons/breeze/apps/48/utilities-system-
 discover/vlc-installed.png ← /usr/share/icons/hicolor/48x48/apps/vlc.png (sha256 c5fe9c088e566685ca179e4c4afaee3538dc1dc2fe17b0c13ad29bf300584f69)
 discover/vlc.png ← /usr/share/icons/hicolor/48x48/apps/vlc.png (sha256 c5fe9c088e566685ca179e4c4afaee3538dc1dc2fe17b0c13ad29bf300584f69)
 panel/firefox.png ← /usr/share/icons/hicolor/48x48/apps/firefox.png (sha256 d9df64a49f932e5f7c8e1f5fccc0b998dafb57f9a7ed2ac9a8e4a43bed45eb1a)
+Connexion SSH : etc/capsuleos/lab-inventory.json (local, gitignoré).

@@ -9,7 +9,7 @@
   "investigator": "collect-vm-gnome-settings-visual-investigation.mjs",
   "source": "procedure-playbook-general.md §couche-τ",
   "vmEnvironment": {
-    "probeExcerpt": "AlmaLinux 10.2 (Lavender Lion) — GNOME Shell 49.4 — capsule@192.168.122.199"
+    "probeExcerpt": "AlmaLinux 10.2 (Lavender Lion) — GNOME Shell 49.4 — <lab-inventory:linux-alma>"
   },
   "officialDocCrossCheck": [
     {

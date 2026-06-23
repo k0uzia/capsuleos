@@ -8,11 +8,12 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { spawnSync } from 'child_process';
 import { ROOT } from './replication-chain-lib.mjs';
+import { resolveInventoryField } from './lab-inventory-resolve.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT_JSON = path.join(ROOT, 'root/docs/inventaires/linux-mint-mintinstall-vm.json');
 const OUT_MD = path.join(ROOT, 'root/docs/inventaires/linux-mint-mintinstall-vm.md');
-const SSH_HOST = process.env.CAPSULE_MINT_VM_SSH || 'capsule@192.168.1.146';
+const SSH_HOST = process.env.KDE_NEON_SSH || resolveInventoryField('linux-mint', 'ssh');
 const SSH_ID = process.env.CAPSULE_SSH_IDENTITY || `${process.env.HOME}/.ssh/capsuleos-lab`;
 
 const write = process.argv.includes('--write');

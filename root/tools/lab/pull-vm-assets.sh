@@ -4,11 +4,13 @@
 #
 # Usage :
 #   bash root/tools/lab/pull-vm-assets.sh --id linux-rocky
-#   bash root/tools/lab/pull-vm-assets.sh --ssh capsule@192.168.122.234 --vendor rocky --toolkit gnome
+#   bash root/tools/lab/pull-vm-assets.sh --ssh user@203.0.113.10 --vendor rocky --toolkit gnome
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
-SSH_TARGET="${ROCKY_SSH:-capsule@192.168.122.234}"
+# shellcheck source=lab-inventory-ssh.sh
+source "$(dirname "$0")/lab-inventory-ssh.sh"
+SSH_TARGET=""
 IDENTITY="${ROCKY_SSH_IDENTITY:-$HOME/.ssh/capsuleos-lab}"
 VENDOR="rocky"
 TOOLKIT="gnome"
@@ -22,11 +24,9 @@ while [[ $# -gt 0 ]]; do
       case "$REGISTRY_ID" in
         linux-fedora)
           VENDOR="fedora"
-          SSH_TARGET="${FEDORA_SSH:-capsule@192.168.122.91}"
           ;;
         linux-ubuntu)
           VENDOR="ubuntu"
-          SSH_TARGET="${UBUNTU_SSH:-capsule@192.168.1.183}"
           ICON_THEME="Yaru"
           ;;
         linux-rocky)
@@ -34,13 +34,16 @@ while [[ $# -gt 0 ]]; do
           ;;
         linux-alma)
           VENDOR="alma"
-          SSH_TARGET="${ALMA_SSH:-capsule@192.168.122.199}"
           ;;
         linux-mint)
           VENDOR="mint"
-          SSH_TARGET="${MINT_SSH:-capsule@192.168.122.33}"
           TOOLKIT="cinnamon"
           ICON_THEME="Mint-Y"
+          ;;
+        linux-popos)
+          VENDOR="popos"
+          TOOLKIT="cosmic"
+          ICON_THEME="Pop"
           ;;
         *)
           VENDOR="rocky"
@@ -55,6 +58,10 @@ while [[ $# -gt 0 ]]; do
     *) echo "Option inconnue: $1" >&2; exit 1 ;;
   esac
 done
+
+if [[ -z "$SSH_TARGET" ]]; then
+  SSH_TARGET="$(resolve_lab_ssh "$REGISTRY_ID" ROCKY_SSH FEDORA_SSH UBUNTU_SSH ALMA_SSH MINT_SSH POPOS_SSH)" || exit 1
+fi
 
 SSH_OPTS=(-o BatchMode=yes -o IdentitiesOnly=yes -i "$IDENTITY")
 REMOTE=(ssh "${SSH_OPTS[@]}" "$SSH_TARGET")

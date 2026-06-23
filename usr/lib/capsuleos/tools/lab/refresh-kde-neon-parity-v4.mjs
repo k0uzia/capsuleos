@@ -20,7 +20,7 @@ if (!index) {
 }
 
 index.campaign = 'v4-deep-parity';
-index.description = 'Indice de parité interactionnelle — VM goupil@192.168.123.52 · campagne v4 P4';
+index.description = 'Indice de parité interactionnelle — VM <lab-inventory:linux-kde-neon> · campagne v4 P4';
 index.roadmap = 'linux-kde-neon-roadmap-v4.md';
 
 const hi = { vis: 96, nav: 96, int: 96, ctx: 94, kb: 92, data: 96 };

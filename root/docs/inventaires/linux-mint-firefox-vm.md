@@ -1,8 +1,10 @@
 # Analyse Firefox — VM Linux Mint 22.3 Zena → CapsuleOS
 
-**Objectif** : ground truth pour une reproduction **fidèle** du navigateur dans `home/Debian/Mint/` (slot `firefox`, embed `usr/share/capsuleos/linux/apps/firefox.html`).
+**Objectif** : ground truth pour une reproduction **fidèle** du navigateur Proton — slot partagé `usr/share/capsuleos/linux/apps/firefox.html`, tokens Mint dans `home/Debian/Mint/style/apps/firefox.skin.css`.
 
-**Collecte** : SSH `capsule@192.168.1.146` (voir `etc/capsuleos/lab-inventory.json`) · script [`vm-mint-firefox-inventory.sh`](../../tools/lab/vm-mint-firefox-inventory.sh) · campagne manuelle 2026-06-04.
+**Collecte assets icônes** : `bash root/tools/lab/pull-firefox-vm-assets.sh --id linux-mint` → `usr/share/capsuleos/assets/images/toolkits/firefox/` (chrome Mozilla, Contile, favicons sites).
+
+**Collecte** : SSH `<lab-inventory:linux-mint-firefox>` (voir `etc/capsuleos/lab-inventory.json`) · script [`vm-mint-firefox-inventory.sh`](../../tools/lab/vm-mint-firefox-inventory.sh) · campagne manuelle 2026-06-04.
 
 Références : [`linux-mint-vm.json`](linux-mint-vm.json) · [`inventaire-parite-mint-vm.md`](../inventaire-parite-mint-vm.md) · [`mint-fenetres-muffin.md`](../mint-fenetres-muffin.md) · passe #7 [`linux-mint-clone-status.md`](linux-mint-clone-status.md)
 
@@ -90,8 +92,8 @@ Structure verticale **attendue** (avec `browser.tabs.inTitlebar=0`) :
 | Favoris simulés | Accueil, Localhost, La Capsule, os-lacapsule | **CapsuleOnly** (VM : favoris Mozilla / import) |
 | Bandeau statut simulation | `data-browser-status` (masqué en skin Mint) | OK masqué ; absent sur VM |
 | JS | `firefoxBrowser.js` — navigation simulée, pas d’historique réel | **P1** assumé |
-| Skin | `firefox.skin.css` — palette sombre #1c1b22 / #2b2a33 | **P1** — approcher Proton + Mint-Y-Dark-Aqua, valider clair/sombre |
-| Smoke | `smoke-mint-firefox.mjs` | CSD + favoris ; à adapter si retour barre titre séparée |
+| Skin | `firefox.skin.css` — tokens Proton 151 (#1c1b22 / #2b2a33 / #42414d) + bordures `--menu-shell-border` Mint-Y-Dark-Aqua ; clair/sombre validés smoke | **OK** (P1 tokens — 2026-06-10) |
+| Smoke | `smoke-mint-firefox.mjs` | Muffin SSD + Proton ; titre centré ; sondes couleurs dark/light |
 
 ---
 
@@ -110,7 +112,7 @@ Structure verticale **attendue** (avec `browser.tabs.inTitlebar=0`) :
 3. **Boutons toolbar** : icônes Proton (SVG/mask) pour accueil, bibliothèque, menu — fin des caractères Unicode dans le HTML.
 4. **Barre de favoris** : état masqué par défaut (comme profil neuf) ; entrées VM ou vide.
 5. **Historique** : back/forward désactivés tant qu’il n’y a pas de pile — OK si message discret (pas bandeau simulation).
-6. **Thème couleurs** : caler tokens sur capture VM (Proton 3 + contraste Mint-Y-Dark-Aqua).
+6. ~~**Thème couleurs**~~ — **fait** : tokens Proton 151 calés sur `#1c1b22` / `#2b2a33` / `#42414d`, bordures `--menu-shell-border`, police `--font-ui` (Ubuntu), onglet actif Proton sans bandeau aqua ; smoke dark + light.
 
 ### P2 — polish
 
@@ -136,13 +138,13 @@ Structure verticale **attendue** (avec `browser.tabs.inTitlebar=0`) :
 
 ```bash
 # Inventaire Firefox dédié (JSON stdout)
-ssh -i ~/.ssh/capsuleos-lab capsule@192.168.1.146 'DISPLAY=:0 bash -s' \
+ssh -i ~/.ssh/capsuleos-lab <lab-inventory:linux-mint-firefox> 'DISPLAY=:0 bash -s' \
   < root/tools/lab/vm-mint-firefox-inventory.sh > root/docs/inventaires/linux-mint-firefox-vm.json
 
 # Capture visuelle (fenêtre active)
-ssh -i ~/.ssh/capsuleos-lab capsule@192.168.1.146 \
+ssh -i ~/.ssh/capsuleos-lab <lab-inventory:linux-mint-firefox> \
   'DISPLAY=:0 gnome-screenshot -w -f /tmp/ff-win.png'
-scp -i ~/.ssh/capsuleos-lab capsule@192.168.1.146:/tmp/ff-win.png root/docs/inventaires/assets/mint-firefox-vm.png
+scp -i ~/.ssh/capsuleos-lab <lab-inventory:linux-mint-firefox>:/tmp/ff-win.png root/docs/inventaires/assets/mint-firefox-vm.png
 ```
 
 Compléter par **noVNC** (comparaison côte à côte avec `home/Debian/Mint/index.html`) — voir [`contrib.md`](../../contrib.md) § comparaison VM.
